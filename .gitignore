@@ -1,0 +1,10 @@
+audio/
+transcript/
+qa/
+scripts/
+article/article.pre-qa.md
+research/run.json
+research/verified.json
+research/anchor_curl.json
+BRIEF.md
+.DS_Store

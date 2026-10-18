@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-labelledby="amdahl-title amdahl-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="amdahl-title">Amdahl's law: speed up the short step and the total barely moves</title>
+  <desc id="amdahl-desc">Two bars of time to a new chip, design then manufacturing; when the design segment shrinks a lot, the manufacturing segment stays the same, so the total is only slightly shorter.</desc>
+  <rect id="amdahl-bg" width="800" height="400" fill="#f5f5f5"/>
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Speed up the short step, the total barely moves</text>
+
+  <!-- Before -->
+  <text x="20" y="144" font-size="16" font-weight="700" fill="#2d3142">Before</text>
+  <rect id="amdahl-a-design-seg" x="100" y="110" width="80" height="56" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+  <text x="140" y="144" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">Design</text>
+  <rect id="amdahl-a-mfg-seg" x="180" y="110" width="520" height="56" fill="#2d3142" fill-opacity="0.08" stroke="#4f5d75" stroke-width="1"/>
+  <text x="440" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Making the chip (the fab)</text>
+  <rect id="amdahl-a-total" x="100" y="182" width="600" height="4" fill="#4f5d75"/>
+  <text x="400" y="212" text-anchor="middle" font-size="14" fill="#4f5d75">Total: a long wait</text>
+
+  <!-- After -->
+  <rect id="amdahl-ghost" x="100" y="256" width="600" height="56" fill="none" stroke="#7a8399" stroke-width="1" stroke-dasharray="5,4"/>
+  <text x="20" y="290" font-size="16" font-weight="700" fill="#2d3142">After</text>
+  <rect id="amdahl-b-design-seg" x="100" y="256" width="8" height="56" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+  <rect id="amdahl-b-mfg-seg" x="108" y="256" width="520" height="56" fill="#2d3142" fill-opacity="0.08" stroke="#4f5d75" stroke-width="1"/>
+  <text id="amdahl-b-mfg-label" x="368" y="290" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Making the chip (the fab)</text>
+  <text id="amdahl-b-design-label" x="100" y="244" font-size="14" font-weight="700" fill="#2d3142">Design (much faster)</text>
+  <rect id="amdahl-b-total" x="100" y="328" width="528" height="4" fill="#4f5d75"/>
+  <text id="amdahl-b-total-label" x="364" y="358" text-anchor="middle" font-size="14" fill="#4f5d75">Total: almost the same</text>
+  <text x="700" y="244" text-anchor="end" font-size="13" fill="#4f5d75">dashed line = the old total</text>
+</svg>

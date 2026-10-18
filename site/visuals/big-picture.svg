@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 510" width="800" height="510" role="img" aria-labelledby="big-picture-title big-picture-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="big-picture-title">The five ideas as one loop</title>
+  <desc id="big-picture-desc">A loop of five steps: money (capex) pays for chips designed with AI, which hit the manufacturing wall, then memory and energy limits, which shape what we optimize for (tokens per second, cost per task), which decides where the money goes next.</desc>
+  <defs>
+    <marker id="big-picture-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+    </marker>
+  </defs>
+  <rect id="big-picture-bg" width="800" height="510" fill="#f5f5f5"/>
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Five ideas, one loop</text>
+
+  <!-- arrows first -->
+  <path id="big-picture-arrow-1" d="M 510 100 L 632 100 A 8 8 0 0 1 640 108 L 640 206" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-2" d="M 640 292 L 640 396" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-3" d="M 470 440 L 332 440" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-4" d="M 170 396 L 170 294" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-5" d="M 160 208 L 160 108 A 8 8 0 0 1 168 100 L 288 100" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+
+  <text x="400" y="262" text-anchor="middle" font-size="15" fill="#4f5d75">What we optimize for</text>
+  <text x="400" y="284" text-anchor="middle" font-size="15" fill="#4f5d75">decides where the</text>
+  <text x="400" y="306" text-anchor="middle" font-size="15" fill="#4f5d75">money goes next</text>
+
+  <!-- nodes -->
+  <g id="big-picture-node-1">
+    <rect x="290" y="58" width="220" height="84" rx="6" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <circle cx="308" cy="76" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="308" y="81" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">1</text>
+    <text x="400" y="96" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Money (capex)</text>
+    <text x="400" y="122" text-anchor="middle" font-size="13" fill="#2d3142">build-out spending</text>
+  </g>
+  <g id="big-picture-node-2">
+    <rect x="530" y="208" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="548" cy="226" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="548" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">2</text>
+    <text x="640" y="246" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Chips designed</text>
+    <text x="640" y="272" text-anchor="middle" font-size="13" fill="#2d3142">with AI helping</text>
+  </g>
+  <g id="big-picture-node-3">
+    <rect x="470" y="398" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="488" cy="416" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="488" y="421" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">3</text>
+    <text x="580" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Manufacturing wall</text>
+    <text x="580" y="462" text-anchor="middle" font-size="13" fill="#2d3142">few fabs, slow to change</text>
+  </g>
+  <g id="big-picture-node-4">
+    <rect x="110" y="398" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="128" cy="416" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="128" y="421" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">4</text>
+    <text x="220" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Memory and energy</text>
+    <text x="220" y="462" text-anchor="middle" font-size="13" fill="#2d3142">moving data costs most</text>
+  </g>
+  <g id="big-picture-node-5">
+    <rect x="50" y="208" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="68" cy="226" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="68" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">5</text>
+    <text x="160" y="246" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">What we optimize</text>
+    <text x="160" y="266" text-anchor="middle" font-size="13" fill="#2d3142">tokens per second,</text>
+    <text x="160" y="283" text-anchor="middle" font-size="13" fill="#2d3142">cost per task</text>
+  </g>
+
+  <!-- highlight overlays (hidden in the static frame) -->
+  <rect id="big-picture-hl-1" x="286" y="54" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-2" x="526" y="204" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-3" x="466" y="394" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-4" x="106" y="394" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-5" x="46" y="204" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+</svg>

@@ -1,0 +1,523 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who builds the brains? The Sundai Hack 145 chip panel, explained like you're 5</title>
+<meta name="description" content="An ELI5 explainer of the Sundai Hack 145 panel on AI, chip design, manufacturing and data centers.">
+<style>
+:root{--bg:#fbfaf7;--ink:#1f2330;--muted:#5b6070;--rule:#e4e1d8;--accent:#eb6c36;--card:#ffffff;--quote:#f3efe6}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14161c;--ink:#eceae4;--muted:#a3a6b0;--rule:#2b2f3a;--accent:#f08a5d;--card:#1c1f27;--quote:#20242e}}
+:root[data-theme=dark]{--bg:#14161c;--ink:#eceae4;--muted:#a3a6b0;--rule:#2b2f3a;--accent:#f08a5d;--card:#1c1f27;--quote:#20242e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:48px 16px 96px}
+h1{font-size:clamp(30px,6vw,46px);line-height:1.1;letter-spacing:-.02em;margin:0 0 12px}
+h2{font-size:clamp(22px,4.2vw,30px);line-height:1.2;margin:64px 0 12px;padding-top:16px;border-top:1px solid var(--rule)}
+h3{font-size:19px;margin:28px 0 6px}
+a{color:var(--accent);text-underline-offset:2px}
+blockquote{margin:20px 0;padding:14px 18px;background:var(--quote);border-left:4px solid var(--accent);border-radius:6px}
+blockquote p{margin:.3em 0}
+figure{margin:28px -8px;padding:8px;background:var(--card);border:1px solid var(--rule);border-radius:12px}
+figure svg{display:block;width:100%;height:auto;border-radius:8px}
+@media (max-width:640px){figure{overflow-x:auto;-webkit-overflow-scrolling:touch}figure svg{width:700px;max-width:none}figure::after{content:"swipe to see the whole picture";display:block;font-size:13px;color:var(--muted);padding:6px 4px 0;position:sticky;left:0}}
+table{border-collapse:collapse;width:100%;font-size:16px;display:block;overflow-x:auto}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+code{font-size:.9em}
+hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
+</style></head>
+<body><main>
+<h1>Who builds the brains? The Sundai Hack 145 chip panel, explained like you're 5</h1>
+<p><em>AI can already help design chips. The harder questions are who can build them, how fast, and what they should be built to do.</em></p>
+<h2>The whole panel in 30 seconds</h2>
+<p>The two hosts of Sundai Hack 145 spent an hour at MIT CSAIL in October 2026 talking about where AI meets chip design, chip factories and data centers. Their main argument: AI is about to make <em>designing</em> chips much faster, but <em>manufacturing</em> them is the slow part, so that is where the real bottleneck sits. Around that core, they argued about memory, energy, what a data center should optimize for, and who ends up making money.</p>
+<p>I was in the room. Below, each idea gets a plain-English version first, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.</p>
+<h2>5 big ideas</h2>
+<p>There are 5 topics. Topic 1 has 5 points, topic 2 has 4, topic 3 has 4, topic 4 has 5, and topic 5 has 4.</p>
+<ol>
+<li>AI is learning to design chips.</li>
+<li>The factory, not the design, is the wall.</li>
+<li>Custom chips win because moving data is expensive.</li>
+<li>"Fast" depends on the job.</li>
+<li>The money, the cycles, and the split into specialist chips.</li>
+</ol>
+<h2>1. AI is learning to design chips</h2>
+<blockquote>
+<p><strong>Like you're 5:</strong> Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.</p>
+</blockquote>
+<figure data-visual="pipeline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-labelledby="pipeline-title pipeline-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="pipeline-title">From idea to chip: where verification takes the time</title>
+  <desc id="pipeline-desc">Chip design runs from spec to RTL, verification, physical design, tape-out and fab; verification is the biggest stage at about half of project time (53 percent in the 2018 Wilson Research study), and AI agents are arriving at RTL, verification and physical design.</desc>
+  <defs>
+    <marker id="pipeline-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+    </marker>
+  </defs>
+  <rect id="pipeline-bg" width="800" height="440" fill="#f5f5f5"/>
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">From idea to chip</text>
+
+  <!-- arrows -->
+  <line x1="108" y1="220" x2="124" y2="220" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#pipeline-arrow)"/>
+  <line x1="212" y1="220" x2="228" y2="220" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#pipeline-arrow)"/>
+  <line x1="468" y1="220" x2="484" y2="220" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#pipeline-arrow)"/>
+  <line x1="572" y1="220" x2="588" y2="220" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#pipeline-arrow)"/>
+  <line x1="676" y1="220" x2="692" y2="220" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#pipeline-arrow)"/>
+
+  <!-- stages -->
+  <g id="pipeline-stage-spec">
+    <rect x="20" y="180" width="88" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="64" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Spec</text>
+  </g>
+  <g id="pipeline-stage-rtl">
+    <rect x="124" y="180" width="88" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="168" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">RTL</text>
+  </g>
+  <g id="pipeline-stage-verif">
+    <rect id="pipeline-verif-box" x="228" y="160" width="240" height="120" rx="6" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <text x="348" y="206" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Verification</text>
+    <text x="348" y="234" text-anchor="middle" font-size="14" fill="#2d3142">about half of project time</text>
+    <text x="348" y="258" text-anchor="middle" font-size="14" fill="#2d3142">53% (Wilson Research, 2018)</text>
+  </g>
+  <g id="pipeline-stage-physical">
+    <rect x="484" y="180" width="88" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="528" y="216" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Physical</text>
+    <text x="528" y="238" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">design</text>
+  </g>
+  <g id="pipeline-stage-tapeout">
+    <rect x="588" y="180" width="88" height="80" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="632" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Tape-out</text>
+  </g>
+  <g id="pipeline-stage-fab">
+    <rect x="692" y="180" width="88" height="80" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+    <text x="736" y="226" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Fab</text>
+  </g>
+
+  <!-- AI agent badges -->
+  <g id="pipeline-badge-rtl">
+    <rect x="128" y="146" width="80" height="24" rx="12" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="168" y="163" text-anchor="middle" font-size="13" font-weight="700" fill="#2d3142">AI agents</text>
+  </g>
+  <g id="pipeline-badge-verif">
+    <rect x="308" y="126" width="80" height="24" rx="12" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="348" y="143" text-anchor="middle" font-size="13" font-weight="700" fill="#2d3142">AI agents</text>
+  </g>
+  <g id="pipeline-badge-physical">
+    <rect x="488" y="146" width="80" height="24" rx="12" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="528" y="163" text-anchor="middle" font-size="13" font-weight="700" fill="#2d3142">AI agents</text>
+  </g>
+
+  <!-- track -->
+  <line x1="64" y1="320" x2="736" y2="320" stroke="#bfc0c0" stroke-width="2"/>
+  <circle cx="64" cy="320" r="5" fill="#7a8399"/>
+  <circle cx="168" cy="320" r="5" fill="#7a8399"/>
+  <circle cx="348" cy="320" r="5" fill="#7a8399"/>
+  <circle cx="528" cy="320" r="5" fill="#7a8399"/>
+  <circle cx="632" cy="320" r="5" fill="#7a8399"/>
+  <circle cx="736" cy="320" r="5" fill="#7a8399"/>
+  <circle id="pipeline-token" cx="736" cy="320" r="11" fill="#eb6c36" stroke="#2d3142" stroke-width="1"/>
+
+  <text x="30" y="372" font-size="14" fill="#4f5d75">RTL: the circuit written as code. Verification: testing it before it is built.</text>
+  <text x="30" y="396" font-size="14" fill="#4f5d75">Tape-out: sending the finished design to the factory (the fab).</text>
+  <text x="30" y="420" font-size="14" fill="#4f5d75">AI agents: software helpers that are starting to show up in these steps.</text>
+</svg></figure>
+
+<h3>What the hosts said</h3>
+<ul>
+<li><strong>People stay in the loop for a while.</strong> One host thought humans will still be needed for years, even as automation creeps up the whole stack, from spec (the written description of what the chip should do) to finished design: "So I think maybe 2030 will be still necessary, or maybe a bit longer." [03:52]</li>
+<li><strong>Chip design is made for AI training.</strong> Every stage produces a number you can check, so no human judge is needed: "the beautiful thing about all the chip design thing is all verifiable rewards." [04:13]</li>
+<li><strong>The catch is data.</strong> Companies guard their design files, so progress will likely happen inside companies rather than in public models: "no one wants to share because it's their main IP." [04:32]</li>
+<li><strong>A story from the room.</strong> One host told of a friend at Anthropic who gave Claude a short prompt to design a systolic array (a grid of simple math units, the core of many AI chips), find a vendor and handle tape-out (sending the final design to the factory). The punchline: "he got the chip a week later back in San Francisco." [05:55] (Unverified: research found no public record of this story; see the Fact check below.)</li>
+<li><strong>Verification is the big prize.</strong> Verification means writing huge piles of tests to prove a design works. One host said it eats most of the effort: "And this takes 70% and takes months." [07:49] Because it is a search through huge numbers of combinations, they argued AI suits it well, and one host predicted that "chip design could be almost solved" within a few years. [07:02]</li>
+</ul>
+<h3>What the research says</h3>
+<ul>
+<li>An academic survey of AI agents for chip design (<a target="_blank" rel="noopener" href="https://arxiv.org/html/2512.23189v2">arXiv, Dec 2025</a>) backs the hosts on two points. No AI agent has yet taken an industrial chip all the way to tape-out without humans, and good industrial data is locked inside companies. It places autonomous flows for single blocks (not whole chips) 3 to 5 years out, if benchmarks improve.</li>
+<li>The "verifiable rewards" idea is published. QiMeng-CodeV-R1 trains an AI to write chip code using automatic tests as the grader. Its 7B model reports 68.6% on one benchmark (VerilogEval v2) and 72.9% on another (RTLLM v1.1) (<a target="_blank" rel="noopener" href="https://arxiv.org/abs/2505.24183">arXiv, May 2025, revised Feb 2026</a>). That covers small pieces of chip code, not whole chips.</li>
+<li>Vendors are moving fast, with vendor numbers. Synopsys, with NVIDIA, announced an agent for chip verification and claims up to 50X faster time to validated chip code (RTL) than traditional verification workflows (<a target="_blank" rel="noopener" href="https://news.synopsys.com/2026-07-26-Synopsys-Showcases-Comprehensive-Autonomous-Engineering-Workflows-from-Silicon-to-Systems,-Developed-with-NVIDIA-Technology">Synopsys, Jul 2026</a>). The startup ChipAgents expanded its Series A to $134 million and says it is deployed at more than 120 chip companies (<a target="_blank" rel="noopener" href="https://www.vcaonline.com/news/2026072902/chipagents-expands-series-a-funding-to-134-million-as-demand-grows-for-agentic-ai-in-semiconductor-design/">VCA, Jul 2026</a>). These are company claims, not independent measurements.</li>
+<li>The closest documented path from AI-written chip code to real silicon was slower than a week. In one student competition, teams used AI to write the code, design phases ran January to April 2026, and eleven designs were submitted for manufacturing (<a target="_blank" rel="noopener" href="https://arxiv.org/html/2610.18891">arXiv, Oct 2026</a>).</li>
+</ul>
+<blockquote>
+<p><strong>Fact check:</strong> Two gentle corrections. First, the 70% figure is folklore. The researcher behind the best-known industry survey wrote that the number opens nearly every verification paper but has no traceable source; his surveys found 50% in 2007 and 55% in 2010 (<a target="_blank" rel="noopener" href="https://blogs.sw.siemens.com/verificationhorizons/2011/04/03/part-4-the-2010-wilson-research-group-functional-verification-study/">Siemens, Apr 2011</a>). The latest figure I could check is 53% of project time in 2018 (<a target="_blank" rel="noopener" href="https://blogs.sw.siemens.com/verificationhorizons/2019/01/29/part-8-the-2018-wilson-research-group-functional-verification-study/">Siemens, Jan 2019</a>). So "about half" is right and "about 70%" is not. Second, the chip-in-a-week story: research found no public record of it, with no post, vendor or shuttle named. What is public is that Anthropic hired in July 2026 for a Chip Design RL role that builds AI training setups for chip design and verification (<a target="_blank" rel="noopener" href="https://job-boards.greenhouse.io/anthropic/jobs/5231612008">Anthropic job post, Jul 2026</a>). That points the same direction as the story, but it does not prove it. Treat the story as unverified. Third, the prediction that chip design could be "almost solved" in three or four years is more optimistic than the survey, which sees autonomous flows only for single blocks in 3 to 5 years.</p>
+</blockquote>
+<h3>Why it connects</h3>
+<p>If AI makes design fast, the next question is whether anyone can manufacture all those new designs, which is topic 2.</p>
+<h2>2. The factory, not the design, is the wall</h2>
+<blockquote>
+<p><strong>Like you're 5:</strong> A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.</p>
+</blockquote>
+<figure data-visual="wall"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-labelledby="wall-title wall-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="wall-title">The wall between chip designers and the fab</title>
+  <desc id="wall-desc">Chip designers (NVIDIA, Google, OpenAI with Broadcom) sit on one side of a wall, the TSMC foundry on the other, and ASML tool makers feed the fab; a design must cross the wall and then wait years for the fab to calibrate.</desc>
+  <defs>
+    <marker id="wall-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+    </marker>
+  </defs>
+  <rect id="wall-bg" width="800" height="500" fill="#f5f5f5"/>
+
+  <text x="400" y="32" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Designers on one side, the factory on the other</text>
+  <text x="350" y="60" text-anchor="middle" font-size="14" font-weight="600" fill="#4f5d75">the wall</text>
+
+  <!-- arrow first -->
+  <line id="wall-asml-arrow" x1="700" y1="390" x2="700" y2="334" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#wall-arrow)"/>
+  <text x="688" y="368" text-anchor="end" font-size="13" fill="#4f5d75">feed the fab</text>
+
+  <!-- designers -->
+  <rect id="wall-designers" x="30" y="90" width="270" height="240" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+  <text x="50" y="122" font-size="18" font-weight="700" fill="#2d3142">Chip designers</text>
+  <text x="50" y="156" font-size="16" fill="#2d3142">NVIDIA</text>
+  <text x="50" y="184" font-size="16" fill="#2d3142">Google</text>
+  <text x="50" y="212" font-size="16" fill="#2d3142">OpenAI with Broadcom</text>
+
+  <!-- wall with a mail slot -->
+  <rect id="wall-wall-top" x="330" y="72" width="40" height="174" fill="#4f5d75" fill-opacity="0.35" stroke="#4f5d75" stroke-width="1"/>
+  <rect id="wall-wall-bottom" x="330" y="290" width="40" height="140" fill="#4f5d75" fill-opacity="0.35" stroke="#4f5d75" stroke-width="1"/>
+
+  <!-- foundry -->
+  <rect id="wall-foundry" x="410" y="90" width="370" height="240" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+  <text x="430" y="122" font-size="18" font-weight="700" fill="#2d3142">Foundry: TSMC</text>
+  <rect id="wall-door" x="520" y="210" width="70" height="120" rx="4" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="1.5"/>
+  <circle cx="576" cy="274" r="4" fill="#eb6c36"/>
+  <g id="wall-door-label">
+    <text x="606" y="262" font-size="16" font-weight="700" fill="#2d3142">Years to</text>
+    <text x="606" y="284" font-size="16" font-weight="700" fill="#2d3142">calibrate</text>
+  </g>
+
+  <!-- envelope: drawn in its arrived position -->
+  <g id="wall-envelope">
+    <rect x="432" y="250" width="56" height="36" rx="3" fill="#ffffff" stroke="#2d3142" stroke-width="1.5"/>
+    <polyline points="432,250 460,272 488,250" fill="none" stroke="#2d3142" stroke-width="1.5"/>
+  </g>
+
+  <!-- tool makers -->
+  <rect id="wall-asml" x="410" y="390" width="370" height="90" rx="6" fill="#2d3142" fill-opacity="0.05" stroke="#4f5d75" stroke-width="1"/>
+  <text x="430" y="418" font-size="16" font-weight="700" fill="#2d3142">Tool makers: ASML</text>
+  <text x="430" y="444" font-size="14" fill="#2d3142">EUV machine: about $180M</text>
+  <text x="430" y="466" font-size="14" fill="#2d3142">High-NA machine: about $380-400M</text>
+
+  <text x="30" y="420" font-size="14" fill="#4f5d75">Envelope = the finished chip design.</text>
+  <text x="30" y="444" font-size="14" fill="#4f5d75">It crosses the wall, then waits.</text>
+</svg></figure>
+
+<h3>What the hosts said</h3>
+<ul>
+<li><strong>There is a wall between designers and makers.</strong> Most chip companies design, and a separate company builds: "NVIDIA doesn't produce their own chips." [01:07] The building side runs on machines that are slow to tune.</li>
+<li><strong>The machines are pricey and slow to calibrate.</strong> On ASML's EUV machines (the tools that print chip patterns with extreme ultraviolet light), one host said "they sell their machines for 400 million per machine." [01:47] They added that machines bought a year and a half to two years ago are only now working, which locks factories into the processes they already have.</li>
+<li><strong>The biggest factory cannot afford to experiment.</strong> One host argued TSMC runs fixed recipes at full demand, and pausing to try new ideas would cost "hundreds of millions of dollars for them just to try it out." [12:20] So new ideas get tested in smaller factories. Elsewhere they called the industry slow to turn: "processing industry is an oil tanker." [38:32]</li>
+<li><strong>Fix the slowest step first.</strong> This is Amdahl's law (speeding up one part of a job only helps as much as that part's share of the total): "you should always focus on the thing which takes the longest time to optimize." [40:00] They named a second bottleneck too: "there is a huge lack of talent." [48:39]</li>
+</ul>
+<figure data-visual="amdahl"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-labelledby="amdahl-title amdahl-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="amdahl-title">Amdahl's law: speed up the short step and the total barely moves</title>
+  <desc id="amdahl-desc">Two bars of time to a new chip, design then manufacturing; when the design segment shrinks a lot, the manufacturing segment stays the same, so the total is only slightly shorter.</desc>
+  <rect id="amdahl-bg" width="800" height="400" fill="#f5f5f5"/>
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Speed up the short step, the total barely moves</text>
+
+  <!-- Before -->
+  <text x="20" y="144" font-size="16" font-weight="700" fill="#2d3142">Before</text>
+  <rect id="amdahl-a-design-seg" x="100" y="110" width="80" height="56" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+  <text x="140" y="144" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">Design</text>
+  <rect id="amdahl-a-mfg-seg" x="180" y="110" width="520" height="56" fill="#2d3142" fill-opacity="0.08" stroke="#4f5d75" stroke-width="1"/>
+  <text x="440" y="144" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Making the chip (the fab)</text>
+  <rect id="amdahl-a-total" x="100" y="182" width="600" height="4" fill="#4f5d75"/>
+  <text x="400" y="212" text-anchor="middle" font-size="14" fill="#4f5d75">Total: a long wait</text>
+
+  <!-- After -->
+  <rect id="amdahl-ghost" x="100" y="256" width="600" height="56" fill="none" stroke="#7a8399" stroke-width="1" stroke-dasharray="5,4"/>
+  <text x="20" y="290" font-size="16" font-weight="700" fill="#2d3142">After</text>
+  <rect id="amdahl-b-design-seg" x="100" y="256" width="8" height="56" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+  <rect id="amdahl-b-mfg-seg" x="108" y="256" width="520" height="56" fill="#2d3142" fill-opacity="0.08" stroke="#4f5d75" stroke-width="1"/>
+  <text id="amdahl-b-mfg-label" x="368" y="290" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Making the chip (the fab)</text>
+  <text id="amdahl-b-design-label" x="100" y="244" font-size="14" font-weight="700" fill="#2d3142">Design (much faster)</text>
+  <rect id="amdahl-b-total" x="100" y="328" width="528" height="4" fill="#4f5d75"/>
+  <text id="amdahl-b-total-label" x="364" y="358" text-anchor="middle" font-size="14" fill="#4f5d75">Total: almost the same</text>
+  <text x="700" y="244" text-anchor="end" font-size="13" fill="#4f5d75">dashed line = the old total</text>
+</svg></figure>
+
+<h3>What the research says</h3>
+<ul>
+<li>The 400 million price matches High-NA EUV, the newest version. One trade report put High-NA at about $380 million, more than twice the roughly $180 million of the previous generation (<a target="_blank" rel="noopener" href="https://cdn.eenewseurope.com/en/intel-video-shows-high-na-euv-lithography-machine-installation/">eeNews Europe, Mar 2024</a>). A market piece puts High-NA at about $400M and says TSMC does not need High-NA for its next several processes (<a target="_blank" rel="noopener" href="https://www.itiger.com/news/1163873712">iTiger, Jul 2026</a>). ASML does not publish prices, so these are press figures.</li>
+<li>Bringing a machine up is a real project. Intel finished acceptance testing on a High-NA scanner against a target of 175 wafers per hour (<a target="_blank" rel="noopener" href="https://bits-chips.com/article/intel-begins-acceptance-testing-of-asmls-exe5200b-high-na-euv-scanner/">Bits&amp;Chips, Dec 2025</a>). Acceptance is not the same as full process qualification.</li>
+<li>TSMC really is full. Its 3nm capacity was fully committed for 2026, and demand for its advanced packaging is about 1 million wafers in 2026 versus about 370,000 in 2024 (<a target="_blank" rel="noopener" href="https://www.techtimes.com/articles/320348/20260713/tsmc-sets-all-time-revenue-record-ai-demand-has-rewritten-its-calendar.htm">TechTimes, Jul 2026</a>).</li>
+<li>Masks (the stencils used to print a chip) cost millions. One estimate lists $10M to $20M for a mask set at 3nm to 5nm (<a target="_blank" rel="noopener" href="https://siliconanalysts.com/analysis/fabless-startup-tapeout-cost-guide">Silicon Analysts, Mar 2026</a>).</li>
+<li>The talent gap is documented. An industry group projects about 67,000 US chip-industry jobs at risk of going unfilled by 2030 (<a target="_blank" rel="noopener" href="https://www.semiconductors.org/chipping-away-assessing-and-addressing-the-labor-market-gap-facing-the-u-s-semiconductor-industry/">SIA, Jul 2023</a>). That covers the whole industry, not chip designers alone.</li>
+<li>OpenAI's chip program is real. OpenAI designs the chip and Broadcom handles manufacturing, networking and system integration, aiming at 10 GW of accelerators by 2029 (<a target="_blank" rel="noopener" href="https://www.maginative.com/article/openai-and-broadcom-to-co-design-custom-ai-chips-deploy-10-gw-by-2029/">Maginative, Oct 2025</a>).</li>
+</ul>
+<blockquote>
+<p><strong>Fact check:</strong> "400 million per machine" is a High-NA price. The previous-generation (lower-NA) machines were about $180 million in the same 2024 report, and a current price for those machines was not confirmed (<a target="_blank" rel="noopener" href="https://cdn.eenewseurope.com/en/intel-video-shows-high-na-euv-lithography-machine-installation/">eeNews Europe, Mar 2024</a>). The research also could not confirm the "year and a half to two years" calibration time or the cost of TSMC pausing to experiment. They may be true inside the industry; they are just not on the public record.</p>
+</blockquote>
+<h3>Why it connects</h3>
+<p>If the factory is the slow step, every chip that does get made needs to count, which is why topic 3 is about squeezing more out of each one.</p>
+<h2>3. Custom chips win because moving data is expensive</h2>
+<blockquote>
+<p><strong>Like you're 5:</strong> A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.</p>
+</blockquote>
+<figure data-visual="memory-wall"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" role="img" aria-labelledby="memory-wall-title memory-wall-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="memory-wall-title">The memory wall: adding is cheap, fetching is not</title>
+  <desc id="memory-wall-desc">On a log scale, an 8-bit add costs 0.03 pJ and a 32-bit add 0.1 pJ, while a DRAM access costs 1.3 to 2.6 nJ and runs off the chart; below, a spectrum from flexible CPU and GPU to TPU to hardwired chips such as Taalas.</desc>
+  <defs>
+    <marker id="memory-wall-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+    </marker>
+  </defs>
+  <rect id="memory-wall-bg" width="800" height="520" fill="#f5f5f5"/>
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Adding is cheap. Fetching from memory is not.</text>
+
+  <!-- gridlines (log scale, each one is ten times the last) -->
+  <line x1="350" y1="64" x2="350" y2="272" stroke="#bfc0c0" stroke-width="1"/>
+  <line x1="460" y1="64" x2="460" y2="272" stroke="#bfc0c0" stroke-width="1"/>
+  <line x1="570" y1="64" x2="570" y2="272" stroke="#bfc0c0" stroke-width="1"/>
+  <line x1="680" y1="64" x2="680" y2="272" stroke="#bfc0c0" stroke-width="1"/>
+  <line x1="240" y1="64" x2="240" y2="272" stroke="#4f5d75" stroke-width="1.2"/>
+  <text x="350" y="294" text-anchor="middle" font-size="13" fill="#4f5d75">0.1 pJ</text>
+  <text x="460" y="294" text-anchor="middle" font-size="13" fill="#4f5d75">1 pJ</text>
+  <text x="570" y="294" text-anchor="middle" font-size="13" fill="#4f5d75">10 pJ</text>
+  <text x="400" y="318" text-anchor="middle" font-size="14" fill="#4f5d75">Each gridline is ten times the one before (log scale)</text>
+
+  <!-- rows -->
+  <text x="30" y="106" font-size="16" font-weight="700" fill="#2d3142">8-bit add</text>
+  <rect id="memory-wall-bar-add8" x="240" y="84" width="52" height="32" fill="#4f5d75" fill-opacity="0.55" stroke="#4f5d75" stroke-width="1"/>
+  <text id="memory-wall-val-add8" x="302" y="106" font-size="16" fill="#2d3142">0.03 pJ</text>
+
+  <text x="30" y="162" font-size="16" font-weight="700" fill="#2d3142">32-bit add</text>
+  <rect id="memory-wall-bar-add32" x="240" y="140" width="110" height="32" fill="#4f5d75" fill-opacity="0.55" stroke="#4f5d75" stroke-width="1"/>
+  <text id="memory-wall-val-add32" x="360" y="162" font-size="16" fill="#2d3142">0.1 pJ</text>
+
+  <text x="30" y="218" font-size="16" font-weight="700" fill="#2d3142">Fetch from DRAM</text>
+  <rect id="memory-wall-bar-dram" x="240" y="196" width="520" height="32" fill="#eb6c36" stroke="#eb6c36" stroke-width="1"/>
+  <g id="memory-wall-break">
+    <polygon points="724,228 742,196 758,196 740,228" fill="#f5f5f5"/>
+    <line x1="724" y1="228" x2="742" y2="196" stroke="#2d3142" stroke-width="1.5"/>
+    <line x1="740" y1="228" x2="758" y2="196" stroke="#2d3142" stroke-width="1.5"/>
+  </g>
+  <text id="memory-wall-val-dram" x="240" y="254" font-size="16" font-weight="700" fill="#2d3142">1.3 to 2.6 nJ per fetch, off the chart</text>
+
+  <!-- spectrum -->
+  <text x="30" y="368" font-size="18" font-weight="700" fill="#2d3142">Flexible or fast: pick your point</text>
+  <line x1="180" y1="420" x2="228" y2="420" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#memory-wall-arrow)"/>
+  <line x1="380" y1="420" x2="428" y2="420" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#memory-wall-arrow)"/>
+  <line x1="580" y1="420" x2="628" y2="420" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#memory-wall-arrow)"/>
+  <g id="memory-wall-spec-cpu">
+    <rect x="30" y="392" width="150" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="105" y="426" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">CPU</text>
+  </g>
+  <g id="memory-wall-spec-gpu">
+    <rect x="230" y="392" width="150" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="305" y="426" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">GPU</text>
+  </g>
+  <g id="memory-wall-spec-tpu">
+    <rect x="430" y="392" width="150" height="56" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="505" y="426" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">TPU</text>
+  </g>
+  <g id="memory-wall-spec-hardwired">
+    <rect x="630" y="392" width="150" height="56" rx="6" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <text x="705" y="416" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Hardwired</text>
+    <text x="705" y="436" text-anchor="middle" font-size="13" fill="#2d3142">(Taalas)</text>
+  </g>
+  <text x="30" y="472" font-size="13" fill="#4f5d75">most flexible</text>
+  <text x="780" y="472" text-anchor="end" font-size="13" fill="#4f5d75">fastest, but fixed</text>
+  <text x="30" y="504" font-size="13" fill="#4f5d75">Energy numbers: Horowitz, ISSCC 2014 (45nm chips).</text>
+</svg></figure>
+
+<h3>What the hosts said</h3>
+<ul>
+<li><strong>Small open factories may move first.</strong> One host argued that the first solution for fast custom chips "is going to come from all these open PDKs." [08:26] A PDK (process design kit) is the rulebook for a factory's process. The hosts said open ones avoid the secrecy contracts of the biggest foundries, though shared open runs still have fixed deadlines.</li>
+<li><strong>Some startups bake the model into the chip.</strong> They described efforts "where you're trying to bake the architecture either of the transformer itself or the specific weights directly into the chip." [09:18] The open question is whether raw speed or this narrow efficiency wins.</li>
+<li><strong>A custom chip example.</strong> One host described OpenAI's chip running a model at about 700 tokens per second against about 120 on the fastest GPU: "So at least in this setup, it's 7x." [15:40]</li>
+<li><strong>The memory wall.</strong> Math is cheap; fetching data from memory is expensive. Compared with a tiny adder, reading from memory is, in one host's words, "like a thousand times more." [16:20] As a middle path, they pointed to reprogrammable chips, "adaptable architectures like FPGAs." [45:35]</li>
+</ul>
+<h3>What the research says</h3>
+<ul>
+<li>The energy gap is well measured. A classic 2014 conference talk lists a 32-bit add at 0.1 pJ (picojoules, trillionths of a joule) and an 8-bit add at 0.03 pJ, versus 1.3 to 2.6 nJ (nanojoules, a thousand times bigger units) for a DRAM memory access (<a target="_blank" rel="noopener" href="https://www.gwern.net/doc/cs/hardware/2014-horowitz-2.pdf">Horowitz, Feb 2014</a>). Those are older-chip numbers, but the gap persists.</li>
+<li>The hardwiring startup is Taalas. Its first chip builds Llama 3.1 8B straight into silicon, and Taalas claims 17K tokens per second per user at roughly 10x less power (<a target="_blank" rel="noopener" href="https://taalas.com/the-path-to-ubiquitous-ai/">Taalas, Feb 2026</a>). Those are vendor claims, and another outlet quoted a lower speed. AMD then agreed to acquire Taalas; completion is unconfirmed as of this writing (<a target="_blank" rel="noopener" href="https://ir.amd.com/news-events/press-releases/detail/1296">AMD, Aug 2026</a>).</li>
+<li>OpenAI's chip is called Jalapeño, built with Broadcom, with first deployment targeted for late 2026. At its debut OpenAI gave no tokens-per-second figure and promised a technical report (<a target="_blank" rel="noopener" href="https://www.dbta.com/Editorial/News-Flashes/OpenAI-and-Broadcom-Debut-LLM-Optimized-Inference-Chip-175457.aspx">DBTA, Jun 2026</a>).</li>
+<li>The memory wall shows up in markets. SK hynix reported Q2 2026 operating profit up about 557% from a year earlier, and conventional DRAM contract prices rose about 93 to 98% quarter on quarter in Q1 2026, per an aggregator not checked against filings (<a target="_blank" rel="noopener" href="https://intuitionlabs.ai/articles/hbm-dram-ai-memory-demand">IntuitionLabs, Sep 2026</a>).</li>
+<li>Memory on the chip, at a price. An OpenAI coding model runs at over 1,000 tokens per second on Cerebras hardware, which keeps its memory on one giant chip. The hosts noted such approaches are fast but cost more energy per token, and the source gives no GPU comparison (<a target="_blank" rel="noopener" href="https://www.theregister.com/2026/02/12/openai_model_cerebras/">The Register, Feb 2026</a>).</li>
+<li>Open factories are real and cheap, but old. One shared run on a 180nm process sells 1,000 dies for $2,000 to $8,000 (<a target="_blank" rel="noopener" href="https://www.crowdsupply.com/wafer-space/gf180mcu-run-3">Crowd Supply, Aug 2026</a>). That suits learning and small parts, not frontier AI chips.</li>
+</ul>
+<blockquote>
+<p><strong>Fact check:</strong> On memory, the host if anything undersold it. For a bare 32-bit add, the 2014 table implies a DRAM access costs roughly 10,000 times more or higher, though "about a thousand" is the right order of magnitude (<a target="_blank" rel="noopener" href="https://www.gwern.net/doc/cs/hardware/2014-horowitz-2.pdf">Horowitz, Feb 2014</a>). On the OpenAI chip, the research could not trace the 120 versus 700 tokens per second (7x) comparison to a published source, and OpenAI gave no speed figure at launch (<a target="_blank" rel="noopener" href="https://www.dbta.com/Editorial/News-Flashes/OpenAI-and-Broadcom-Debut-LLM-Optimized-Inference-Chip-175457.aspx">DBTA, Jun 2026</a>). Treat the 7x as unverified.</p>
+</blockquote>
+<h3>Why it connects</h3>
+<p>Once you can make a chip faster or cheaper, you have to decide which of those you actually want, which is topic 4.</p>
+<h2>4. "Fast" depends on the job</h2>
+<blockquote>
+<p><strong>Like you're 5:</strong> Think of a printer. Tokens per second is how fast pages come out, and cost per token is the price of ink. Some people pay extra for express printing; others are happy to wait. And a printer on the Moon mostly just needs to survive.</p>
+</blockquote>
+<h3>What the hosts said</h3>
+<ul>
+<li><strong>The target keeps moving.</strong> First it was raw compute, then "electricity consumption slash cost per token is very important," and then speed itself became something people pay extra for. [17:01] (A token is a small chunk of text a model reads or writes.)</li>
+<li><strong>Space changes the rules.</strong> For data centers in orbit, the hosts said, delay barely matters. Surviving radiation that flips bits, and extreme temperatures, is what counts. [18:06]</li>
+<li><strong>Agents stress the wiring.</strong> One host said it is "impossible to run an agent on one GPU," so the links between chips (the interconnect) become the thing to optimize. [19:16]</li>
+<li><strong>Count the scratch paper.</strong> Reasoning models can write long hidden chains of thought even for simple questions, so one host proposed measuring "tokens per difficulty, tokens per task." [22:52]</li>
+<li><strong>Benchmarks need secret questions.</strong> Because public tests get gamed, they pointed to setups "where they have half of the benchmark is open" and the rest hidden. [24:46]</li>
+</ul>
+<h3>What the research says</h3>
+<ul>
+<li>Speed is already sold as a premium. On the same open model, Cerebras serves about 1,754 tokens per second at a blended $0.39 per million tokens, versus Groq at about 473 tokens per second for $0.14 (<a target="_blank" rel="noopener" href="https://artificialanalysis.ai/providers/cerebras">Artificial Analysis, fetched Oct 2026</a>). Anthropic's fast mode for Claude Opus 5.5 costs $8 input and $40 output per million tokens versus the standard $4 and $20, for up to 2.5x higher output speed (<a target="_blank" rel="noopener" href="https://platform.claude.com/docs/en/build-with-claude/fast-mode">Anthropic docs, fetched Oct 2026</a>).</li>
+<li>Google tested its TPUs (its own AI chips) in a proton beam for its Suncatcher space project. Memory was the most sensitive part, with no problems until 2 krad(Si) of radiation, and two prototype satellites are planned by early 2027 (<a target="_blank" rel="noopener" href="https://research.google/blog/exploring-a-space-based-scalable-ai-infrastructure-system-design/">Google Research, Nov 2025</a>).</li>
+<li>Space compute is attracting money and filings. Starcloud raised $250M at a $2.3B valuation, with its first Starcloud-2 satellite booked for January 2027 (<a target="_blank" rel="noopener" href="https://www.implicator.ai/starcloud-raises-250-million-at-2-3-billion-valuation-to-buy-launch-capacity/">Implicator, Aug 2026</a>). SpaceX filed for up to 1 million orbital data-center satellites, though one analyst called the idea speculative (<a target="_blank" rel="noopener" href="https://www.satellitetoday.com/connectivity/2026/02/02/spacex-files-for-orbital-data-center-satellites-amid-xai-merger-reports/">Via Satellite, Feb 2026</a>).</li>
+<li>The wiring is a product. NVIDIA's Vera Rubin NVL72 rack ties 72 GPUs and 36 CPUs together and is pitched at agent workloads (<a target="_blank" rel="noopener" href="https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Vera-Rubin-Opens-Agentic-AI-Frontier/">NVIDIA, Mar 2026</a>).</li>
+<li>Tokens per task already appears on some leaderboards. Artificial Analysis notes one model generated 210M tokens on its test suite against a median of 130M, at $2.01 per task (<a target="_blank" rel="noopener" href="https://artificialanalysis.ai/models/glm-5-3">Artificial Analysis, fetched Oct 2026</a>).</li>
+</ul>
+<blockquote>
+<p><strong>Fact check:</strong> ARC's benchmark is not quite half open, half closed. ARC-AGI-2 has 120 public evaluation tasks and 240 hidden ones (120 semi-private plus 120 private), so hidden tasks outnumber public ones two to one (<a target="_blank" rel="noopener" href="https://arcprize.org/arc-agi/2/">ARC Prize, fetched Oct 2026</a>). The spirit of the point holds: keep part of the test secret.</p>
+</blockquote>
+<h3>Why it connects</h3>
+<p>What you optimize for decides what gets built and who pays for it, which brings us to the money in topic 5.</p>
+<h2>5. The money, the cycles, and the split into specialist chips</h2>
+<blockquote>
+<p><strong>Like you're 5:</strong> When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.</p>
+</blockquote>
+<figure data-visual="split"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-labelledby="split-title split-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="split-title">One chip becomes two, and compute moves out</title>
+  <desc id="split-desc">Google's eighth-generation TPU is two chips, TPU 8t for training and TPU 8i for inference, and NVIDIA's Rubin CPX is another workload-specific chip; compute is spreading from hyperscale campuses to the edge and to orbit (Suncatcher, Starcloud).</desc>
+  <rect id="split-bg" width="800" height="440" fill="#f5f5f5"/>
+  <text x="400" y="36" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">One chip becomes two</text>
+
+  <g id="split-chip-train">
+    <rect x="140" y="70" width="220" height="130" rx="8" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <rect x="170" y="62" width="12" height="8" fill="#eb6c36"/><rect x="214" y="62" width="12" height="8" fill="#eb6c36"/><rect x="258" y="62" width="12" height="8" fill="#eb6c36"/><rect x="302" y="62" width="12" height="8" fill="#eb6c36"/>
+    <rect x="170" y="200" width="12" height="8" fill="#eb6c36"/><rect x="214" y="200" width="12" height="8" fill="#eb6c36"/><rect x="258" y="200" width="12" height="8" fill="#eb6c36"/><rect x="302" y="200" width="12" height="8" fill="#eb6c36"/>
+    <text x="250" y="124" text-anchor="middle" font-size="24" font-weight="700" fill="#2d3142">TPU 8t</text>
+    <text x="250" y="152" text-anchor="middle" font-size="16" fill="#2d3142">for training</text>
+    <text x="250" y="176" text-anchor="middle" font-size="14" fill="#4f5d75">(learning)</text>
+  </g>
+  <g id="split-chip-infer">
+    <rect x="440" y="70" width="220" height="130" rx="8" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <rect x="470" y="62" width="12" height="8" fill="#eb6c36"/><rect x="514" y="62" width="12" height="8" fill="#eb6c36"/><rect x="558" y="62" width="12" height="8" fill="#eb6c36"/><rect x="602" y="62" width="12" height="8" fill="#eb6c36"/>
+    <rect x="470" y="200" width="12" height="8" fill="#eb6c36"/><rect x="514" y="200" width="12" height="8" fill="#eb6c36"/><rect x="558" y="200" width="12" height="8" fill="#eb6c36"/><rect x="602" y="200" width="12" height="8" fill="#eb6c36"/>
+    <text x="550" y="124" text-anchor="middle" font-size="24" font-weight="700" fill="#2d3142">TPU 8i</text>
+    <text x="550" y="152" text-anchor="middle" font-size="16" fill="#2d3142">for inference</text>
+    <text x="550" y="176" text-anchor="middle" font-size="14" fill="#4f5d75">(answering fast)</text>
+  </g>
+  <text id="split-cpx-note" x="400" y="244" text-anchor="middle" font-size="14" fill="#4f5d75">NVIDIA's Rubin CPX is a second example: a chip just for very long inputs.</text>
+
+  <text x="400" y="294" text-anchor="middle" font-size="18" font-weight="700" fill="#2d3142">And the compute is moving out</text>
+  <g id="split-place-campus">
+    <rect x="20" y="314" width="220" height="90" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="130" y="352" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Hyperscale campus</text>
+    <text x="130" y="378" text-anchor="middle" font-size="14" fill="#4f5d75">giant data centers</text>
+  </g>
+  <g id="split-place-edge">
+    <rect x="290" y="314" width="220" height="90" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="400" y="352" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Edge</text>
+    <text x="400" y="378" text-anchor="middle" font-size="14" fill="#4f5d75">small, near the user</text>
+  </g>
+  <g id="split-place-orbit">
+    <rect x="560" y="314" width="220" height="90" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="670" y="352" text-anchor="middle" font-size="16" font-weight="700" fill="#2d3142">Orbit</text>
+    <text x="670" y="378" text-anchor="middle" font-size="14" fill="#4f5d75">Suncatcher, Starcloud</text>
+  </g>
+</svg></figure>
+
+<h3>What the hosts said</h3>
+<ul>
+<li><strong>Who captures the value.</strong> Looking back, one host argued that chips were commodities ("memory was completely commodity") and the hyperscalers (giant cloud companies) took the profit. [32:44] They also said these companies are moving data centers off their own books.</li>
+<li><strong>Expect a boom and a bust.</strong> Memory and logic chips always run in cycles, and one host said "that cycle will be 4 to 6 years," possibly bigger this time. [33:37]</li>
+<li><strong>More small data centers near the action.</strong> Because signals still take time to travel, "we'll have more edge data centers," for example near hospitals, as long as the economics work. [36:13]</li>
+<li><strong>Chips are splitting by job.</strong> On Google: "they announced two different TPUs," one for training (teaching a model) and one for inference (using it). [37:46] More splits may follow, but factory limits slow that down.</li>
+</ul>
+<h3>What the research says</h3>
+<ul>
+<li>The spending is huge. Meta guided 2026 capex (spending on buildings and equipment) to $130 to 145 billion (<a target="_blank" rel="noopener" href="https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/">Meta, Jul 2026</a>). Amazon raised its 2026 capex to about $220B from $200B, mainly on higher memory costs, and said capacity will still fall short of demand in 2026 and 2027 (<a target="_blank" rel="noopener" href="https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/">Fortune, Jul 2026</a>).</li>
+<li>Off-the-books data centers are real. Meta and Blue Owl formed a roughly $27B joint venture for a Louisiana campus, with Blue Owl owning 80% and Meta leasing the buildings (<a target="_blank" rel="noopener" href="https://www.bisnow.com/news/national/data-center-capital-markets/meta-pushes-its-largest-data-center-project-off-its-books-with-27b-joint-venture-131490">Bisnow, Oct 2025</a>).</li>
+<li>The split is happening. Google's eighth-generation TPUs come as TPU 8t for training (one superpod scales to 9,600 chips) and TPU 8i for inference, with up to 2x performance per watt over the prior generation (<a target="_blank" rel="noopener" href="https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/eighth-generation-tpu-agentic-era/">Google, Apr 2026</a>). NVIDIA's Rubin CPX is a GPU aimed at very long-context inference, with 128GB of memory, expected at the end of 2026 (<a target="_blank" rel="noopener" href="https://nvidianews.nvidia.com/news/nvidia-unveils-rubin-cpx-a-new-class-of-gpu-designed-for-massive-context-inference">NVIDIA, Sep 2025</a>).</li>
+<li>Edge estimates vary by definition. One firm projects the edge data center market growing from USD 50.86B in 2025 to USD 109.20B by 2030 (<a target="_blank" rel="noopener" href="https://www.marketsandmarkets.com/PressReleases/edge-data-center.asp">MarketsandMarkets, Sep 2025</a>).</li>
+<li>Someone in the audience asked about chips for decentralized agent networks, naming MIT's Project NANDA. NANDA is a Media Lab effort with 18 institutions to build a network of AI agents, and its page describes software protocols, not hardware (<a target="_blank" rel="noopener" href="https://www.media.mit.edu/projects/mit-nanda/overview/">MIT Media Lab, page undated</a>).</li>
+</ul>
+<blockquote>
+<p><strong>Fact check:</strong> The cycle is real, but the research does not confirm "4 to 6 years." One analysis says past memory supercycles tended to peak and turn down within one or two years, while calling this one larger and longer than usual (<a target="_blank" rel="noopener" href="https://newsletter.semianalysis.com/p/memory-mania-how-a-once-in-four-decades">SemiAnalysis, Feb 2026</a>). And for now Amazon's CEO says capacity will still fall short of demand in 2026 and 2027, not that it is overbuilt (<a target="_blank" rel="noopener" href="https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/">Fortune, Jul 2026</a>).</p>
+</blockquote>
+<h3>Why it connects</h3>
+<p>Money flowing into AI, from data-center spending to startup funding like ChipAgents, is part of what drives topic 1's AI design tools, which closes the loop.</p>
+<h2>How the 5 ideas fit together</h2>
+<figure data-visual="big-picture"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 510" width="800" height="510" role="img" aria-labelledby="big-picture-title big-picture-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="big-picture-title">The five ideas as one loop</title>
+  <desc id="big-picture-desc">A loop of five steps: money (capex) pays for chips designed with AI, which hit the manufacturing wall, then memory and energy limits, which shape what we optimize for (tokens per second, cost per task), which decides where the money goes next.</desc>
+  <defs>
+    <marker id="big-picture-arrow" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4f5d75"/>
+    </marker>
+  </defs>
+  <rect id="big-picture-bg" width="800" height="510" fill="#f5f5f5"/>
+  <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="700" fill="#2d3142">Five ideas, one loop</text>
+
+  <!-- arrows first -->
+  <path id="big-picture-arrow-1" d="M 510 100 L 632 100 A 8 8 0 0 1 640 108 L 640 206" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-2" d="M 640 292 L 640 396" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-3" d="M 470 440 L 332 440" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-4" d="M 170 396 L 170 294" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+  <path id="big-picture-arrow-5" d="M 160 208 L 160 108 A 8 8 0 0 1 168 100 L 288 100" fill="none" stroke="#4f5d75" stroke-width="1.5" marker-end="url(#big-picture-arrow)"/>
+
+  <text x="400" y="262" text-anchor="middle" font-size="15" fill="#4f5d75">What we optimize for</text>
+  <text x="400" y="284" text-anchor="middle" font-size="15" fill="#4f5d75">decides where the</text>
+  <text x="400" y="306" text-anchor="middle" font-size="15" fill="#4f5d75">money goes next</text>
+
+  <!-- nodes -->
+  <g id="big-picture-node-1">
+    <rect x="290" y="58" width="220" height="84" rx="6" fill="#eb6c36" fill-opacity="0.08" stroke="#eb6c36" stroke-width="2"/>
+    <circle cx="308" cy="76" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="308" y="81" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">1</text>
+    <text x="400" y="96" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Money (capex)</text>
+    <text x="400" y="122" text-anchor="middle" font-size="13" fill="#2d3142">build-out spending</text>
+  </g>
+  <g id="big-picture-node-2">
+    <rect x="530" y="208" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="548" cy="226" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="548" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">2</text>
+    <text x="640" y="246" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Chips designed</text>
+    <text x="640" y="272" text-anchor="middle" font-size="13" fill="#2d3142">with AI helping</text>
+  </g>
+  <g id="big-picture-node-3">
+    <rect x="470" y="398" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="488" cy="416" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="488" y="421" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">3</text>
+    <text x="580" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Manufacturing wall</text>
+    <text x="580" y="462" text-anchor="middle" font-size="13" fill="#2d3142">few fabs, slow to change</text>
+  </g>
+  <g id="big-picture-node-4">
+    <rect x="110" y="398" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="128" cy="416" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="128" y="421" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">4</text>
+    <text x="220" y="436" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">Memory and energy</text>
+    <text x="220" y="462" text-anchor="middle" font-size="13" fill="#2d3142">moving data costs most</text>
+  </g>
+  <g id="big-picture-node-5">
+    <rect x="50" y="208" width="220" height="84" rx="6" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <circle cx="68" cy="226" r="11" fill="#ffffff" stroke="#2d3142" stroke-width="1"/>
+    <text x="68" y="231" text-anchor="middle" font-size="14" font-weight="700" fill="#2d3142">5</text>
+    <text x="160" y="246" text-anchor="middle" font-size="17" font-weight="700" fill="#2d3142">What we optimize</text>
+    <text x="160" y="266" text-anchor="middle" font-size="13" fill="#2d3142">tokens per second,</text>
+    <text x="160" y="283" text-anchor="middle" font-size="13" fill="#2d3142">cost per task</text>
+  </g>
+
+  <!-- highlight overlays (hidden in the static frame) -->
+  <rect id="big-picture-hl-1" x="286" y="54" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-2" x="526" y="204" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-3" x="466" y="394" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-4" x="106" y="394" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+  <rect id="big-picture-hl-5" x="46" y="204" width="228" height="92" rx="8" fill="none" stroke="#eb6c36" stroke-width="3" opacity="0"/>
+</svg></figure>
+
+<p>Read the five topics as one loop. Money (capex) funds new chips. AI makes designing them faster. The factory wall limits how many get made. Memory and energy limits decide what a good chip looks like. And the choice of what to optimize, tokens per second or cost per task, decides what buyers will pay for, which sends money back to the start.</p>
+<p>The hosts' sharpest point is Amdahl's law applied to design versus manufacturing. Faster design is exciting, but the whole process only moves as fast as its slowest link, and today that link is manufacturing.</p>
+<h2>Words to know</h2>
+<ul>
+<li><strong>HBM:</strong> high-bandwidth memory, stacked memory chips placed right next to an AI chip to feed it data fast.</li>
+<li><strong>EUV:</strong> extreme ultraviolet lithography, machines that print the tiniest chip patterns with very short-wavelength light.</li>
+<li><strong>Tape-out:</strong> the moment a finished chip design is sent to the factory; mistakes after this are costly.</li>
+<li><strong>RTL:</strong> register-transfer level, the code that describes what a chip's circuits do, written before physical layout.</li>
+<li><strong>Systolic array:</strong> a grid of simple math units that pass numbers to their neighbors, used in many AI chips.</li>
+<li><strong>Chiplet:</strong> a small chip designed to be combined with others in one package instead of building one giant chip.</li>
+<li><strong>Interposer:</strong> a thin base layer that wires chiplets and memory to each other inside a package.</li>
+<li><strong>TPU:</strong> tensor processing unit, Google's own chip built for AI math.</li>
+<li><strong>Inference:</strong> using a trained AI model to answer questions, as opposed to training it.</li>
+<li><strong>Amdahl's law:</strong> speeding up one part of a job helps only as much as that part's share of the total time.</li>
+<li><strong>Verifiable reward:</strong> a score a computer can check automatically, like a test with an answer key, used to train AI.</li>
+<li><strong>Capex:</strong> capital expenditure, money spent on long-lasting things like buildings, machines and chips.</li>
+</ul>
+<h2>How this was made</h2>
+<p>I recorded the panel on my phone and transcribed it locally with Whisper. Five research lanes then checked the hosts' claims against public sources, and two adversarial fact-checkers tried to knock each finding down. Of 40 claims checked, 0 were killed and 24 were corrected, and key numbers were re-checked against the source pages wherever the pages could be fetched. Vendor and aggregator figures are flagged as such. Every fact here comes from the verified fact sheet: <a target="_blank" rel="noopener" href="https://github.com/wilsonwu-ai/sundai-145-panel-explained/blob/main/research/facts.md">research/facts.md</a>. The hosts are not named because their names are unconfirmed. If you spot an error, I would like to know.</p>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="motion.js"></script>
+</body></html>

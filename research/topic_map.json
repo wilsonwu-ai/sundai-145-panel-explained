@@ -1,0 +1,548 @@
+{
+ "panel_end_ts": "57:34",
+ "speakers": [
+  {
+   "label": "Moderator/host (opening speaker)",
+   "role": "Co-host; opens the panel and addresses 'Andrew'",
+   "evidence": "[00:00] 'I'm at the very edge of what's happening in the AI world to chip manufacturing, so I'm very excited for this conversation with you, Andrew.' He invites audience questions at 00:07. Identity unconfirmed; lecture.md section 1 only gives a PhD simulation speaker and a second speaker heard as 'Andre' (?)."
+  },
+  {
+   "label": "Panelist A (semiconductor-manufacturing / tool-calibration researcher)",
+   "role": "Guest answering the 'Belgium Lab' question; works on AI + physics for tool calibration; likely the same person as lecture.md's 'main hardware speaker' (PhD on simulation methods for the semiconductor stack, fabricates devices at MIT)",
+   "evidence": "[00:37]-[03:09] describes work with tool vendors on fast calibration, hybrid physics+AI models; [05:13] tells of a friend at 'Entropic' (Anthropic) who got a chip back in a week; [10:16] fruit-fly/neuromorphic comments. The match to lecture.md is inferred, not confirmed by name."
+  },
+  {
+   "label": "Panelist B (compute/hardware-economics side)",
+   "role": "Second panelist; talks custom silicon, memory wall, space data centers, TPUs, Amdahl's law",
+   "evidence": "[12:49] 'my take on what's going to happen with this custom hardware', [18:03] space data centers scenario, [37:46] Google two TPUs, [39:56] Amdahl's Law. Possibly the 'Andre' from lecture.md, unconfirmed. Speaker turns are not diarized, so attribution between A and B is a best guess."
+  },
+  {
+   "label": "Audience members",
+   "role": "Question askers",
+   "evidence": "[16:31] optimization-target question; [23:42] model-company builder asks about benchmark incentives; [28:30] investor-type asks about hyperscaler/data center incentives; [40:51] Project NANDA question; [46:03] startup founder on Meta/agentic loss."
+  }
+ ],
+ "topics": [
+  {
+   "id": "T1",
+   "title": "AI automating the chip design stack (verification, spec-to-tape-out)",
+   "why_it_matters": "Frames the panel's core thesis: chip design may get its own 'coding moment' because rewards are verifiable, but humans stay in the loop through about 2030 and IP secrecy slows shared training data.",
+   "points": [
+    {
+     "point": "Humans likely remain necessary until about 2030 or somewhat longer, but the full stack (design, simulate, run from spec) will eventually be automated, with human verification milestones.",
+     "ts": "03:52",
+     "quote": "So I think maybe 2030 will be still necessary, or maybe a bit longer",
+     "numbers_said": [
+      "2030",
+      "2035",
+      "2040 (in the host question)"
+     ]
+    },
+    {
+     "point": "Chip design is called well-suited to AI training because every stage has verifiable rewards (numbers, no judges).",
+     "ts": "04:13",
+     "quote": "the beautiful thing about all the chip design thing is all verifiable rewards"
+    },
+    {
+     "point": "The bottleneck is data: companies will not share because it is their main IP, so progress is likely inside companies rather than in public foundation models.",
+     "ts": "04:32",
+     "quote": "no one wants to share because it's their main IP"
+    },
+    {
+     "point": "Anecdote: a friend at Anthropic gave Claude a very simple prompt to design a systolic array, find a vendor, and handle tape-out; he reportedly received a working chip in San Francisco about a week later. Presented as analogous to early coding automation.",
+     "ts": "05:55",
+     "quote": "And he got the chip a week later back in San Francisco,",
+     "numbers_said": [
+      "a week later"
+     ]
+    },
+    {
+     "point": "Design verification (writing very long test cases) is claimed to take about 70% of design effort and months; it is framed as a combinatorial search problem AI is good at, shifting humans toward spec definition.",
+     "ts": "07:49",
+     "quote": "And this takes 70% and takes months.",
+     "numbers_said": [
+      "70%",
+      "months"
+     ]
+    },
+    {
+     "point": "Prediction that chip design could be 'almost solved' within three or four years, to the point of asking for an accelerator on demand.",
+     "ts": "07:02",
+     "quote": "chip design could be almost solved",
+     "numbers_said": [
+      "three or four years"
+     ]
+    }
+   ],
+   "research_questions": [
+    "What public evidence exists (as of Oct 2026) of an LLM agent taking a prompt through RTL design, vendor selection and tape-out to a physical chip within about a week? Was the Anthropic-employee anecdote a multi-project wafer or tiny-chip run, and who were the foundry/shuttle vendors?",
+    "What is the current state of AI for chip design: Google AlphaChip, Synopsys/Cadence AI tools, NVIDIA ChipNeMo, startups (e.g., ChipAgents, Cognichip), and published benchmarks for LLM RTL generation and verification (e.g., VerilogEval, RTLLM)?",
+    "Is the claim that design verification consumes about 70% of chip-design time supported by industry surveys (e.g., Siemens/Wilson Research Group functional verification study)? What is the latest figure?",
+    "Which open-source EDA/PDK efforts (OpenROAD, SkyWater, GF, Tiny Tapeout, ChipFlow, etc.) are used for AI chip-design training, and are any labs publishing verifiable-reward training sets for hardware?",
+    "What do credible forecasts say about full-stack automated chip design by 2030 to 2040, and what do EDA vendors say about adoption limits?"
+   ],
+   "terms": [
+    "verifiable rewards",
+    "systolic array",
+    "design verification",
+    "RTL",
+    "tape-out",
+    "spec"
+   ]
+  },
+  {
+   "id": "T2",
+   "title": "Manufacturing, not design, is the bottleneck (calibration, TSMC lock-in, talent)",
+   "why_it_matters": "Explains why even if AI designs chips fast, fabs, tool calibration, masks and talent cap the speed of new compute paradigms; Amdahl's law reasoning shows the manufacturing wall must be fixed first.",
+   "points": [
+    {
+     "point": "Semiconductor firms split into designers and manufacturers with a 'huge wall' between them (NVIDIA designs, TSMC makes), and the manufacturing side relies on physics-simulating tools that are slow to calibrate.",
+     "ts": "01:07",
+     "quote": "NVIDIA doesn't produce their own chips,"
+    },
+    {
+     "point": "ASML EUV machines cost about 400 million each and can take years to calibrate (machines bought 1.5 to 2 years ago only now working), which creates lock-in to existing processes. The panelist's work with tool vendors uses hybrid physics + AI models because only sparse data (about 15 to 100 points) is available.",
+     "ts": "01:47",
+     "quote": "so they sell their machines for 400 million per machine",
+     "numbers_said": [
+      "400 million per machine",
+      "one and a half years, two years",
+      "15, 50, 100 data points"
+     ]
+    },
+    {
+     "point": "TSMC cannot afford experiments: they run locked-in recipes at high demand, and halting production 5 to 10 percent of the time would cost hundreds of millions of dollars, so smaller fabs are the place to try new paradigms. Reliability (not just making it work once) is what researchers underestimate.",
+     "ts": "12:20",
+     "quote": "hundreds of millions of dollars for them just to try it out",
+     "numbers_said": [
+      "five percent",
+      "ten percent",
+      "hundreds of millions of dollars"
+     ]
+    },
+    {
+     "point": "The semiconductor processing industry is described as an 'oil tanker' that does not move fast; a Semicon attendee reportedly said the industry feels secure with schedules out to 2028, and foundries as quasi-monopolies lack urgency.",
+     "ts": "38:32",
+     "quote": "processing industry is an oil tanker",
+     "numbers_said": [
+      "2028"
+     ]
+    },
+    {
+     "point": "Amdahl's Law: always attack the longest step. Today AI-driven design just optimizes for available nodes (TSMC, Intel); true optimum is co-design of process and chip but it is too slow and expensive for now, so fixing manufacturing comes first.",
+     "ts": "40:00",
+     "quote": "you should always focus on the thing which takes the longest time to optimize",
+     "numbers_said": []
+    },
+    {
+     "point": "A second bottleneck is talent: mask sets cost millions each, chip-design talent is scarce and experienced (startup average age 35+), and OpenAI reportedly did only spec and RTL while outsourcing physical design.",
+     "ts": "48:39",
+     "quote": "there is a huge lack of talent",
+     "numbers_said": [
+      "millions of dollars per mask",
+      "average age 35 or higher"
+     ]
+    }
+   ],
+   "research_questions": [
+    "What are current (Oct 2026) ASML EUV and High-NA EUV prices per tool, lead times from purchase to production-qualified status, and how long calibration/ramp typically takes?",
+    "What AI/ML tool-calibration or virtual-metrology companies work with ASML, Applied Materials, Lam, KLA or Tokyo Electron, and what lab is the 'Belgium Lab' (see whisper_doubts)?",
+    "What are the latest mask-set and tape-out costs at leading nodes (N3, N2, 18A), and typical cost of a shuttle/MPW for startups?",
+    "What is TSMC's current capacity situation, lock-in of customer recipes, and what do independent analyses say about downtime costs and access for new architectures (including Intel Foundry, Samsung, GlobalFoundries, smaller fabs)?",
+    "Which company reportedly did the physical design for OpenAI's custom chip (transcript says 'broadband', likely Broadcom), and what is the status of the OpenAI chip program? What does evidence say about the chip-design talent shortage (SIA/Deloitte workforce numbers)?"
+   ],
+   "terms": [
+    "EUV",
+    "lithography calibration",
+    "tape-out",
+    "masks",
+    "yield",
+    "Amdahl's Law",
+    "co-design",
+    "physical design"
+   ]
+  },
+  {
+   "id": "T3",
+   "title": "Custom/hardwired silicon, the memory wall and new compute paradigms",
+   "why_it_matters": "Describes the trade between generality and efficiency: baking models into silicon can yield multi-x speed and energy gains because data movement dominates, but schedules and cost are barriers.",
+   "points": [
+    {
+     "point": "First solutions for fast custom chips may come from open PDKs rather than TSMC, because foundries require NDAs and run rigid tape-out schedules (example given: a closing date of October 1, 2026).",
+     "ts": "08:26",
+     "quote": "is going to come from all these open PDKs",
+     "numbers_said": [
+      "October 1st, 2026"
+     ]
+    },
+    {
+     "point": "Startups are trying to hardwire the transformer architecture or even specific weights into chips (heard as 'Talas'); open question whether speed via TSMC or efficiency via slower specialist hardwiring wins.",
+     "ts": "09:18",
+     "quote": "where you're trying to bake the architecture either of the transformer itself",
+     "numbers_said": []
+    },
+    {
+     "point": "Hot take: in five to ten years OpenAI will sell hardware (wearables, robotics, edge) running specific models; guess of 'easily more than 2x' speedup for a model-specific chip vs general GPU, no official numbers.",
+     "ts": "13:02",
+     "quote": "My hot take is that in maybe five to ten years, OpenAI is going to provide chips",
+     "numbers_said": [
+      "five to ten years",
+      "more than 2x"
+     ]
+    },
+    {
+     "point": "Cited example of the OpenAI chip (heard as 'Jalapeno'): a model that runs about 120 tokens/s on the fastest GPU reportedly runs about 700 tokens/s on the custom chip, roughly 7x in that setup.",
+     "ts": "15:40",
+     "quote": "So at least in this setup, it's 7x",
+     "numbers_said": [
+      "120 tokens per second",
+      "700 tokens per second",
+      "7x"
+     ]
+    },
+    {
+     "point": "The memory wall: compute is constrained by moving data, so DRAM/HBM makers' stocks rose; wafer-scale SRAM approaches (heard as Cerebras) are faster but cost more energy per token. A small adder uses picojoules, while reading a DRAM bit costs roughly a thousand times more, which is the gain from baking things into silicon.",
+     "ts": "16:20",
+     "quote": "from a DRAM cell, that's like a thousand times more",
+     "numbers_said": [
+      "picojoules",
+      "a thousand times more"
+     ]
+    },
+    {
+     "point": "Because tape-out is expensive and slow, an intermediate path is adaptable hardware such as FPGAs for agentic workflows; panelist also bets on optical/neuromorphic compute once the design loop closes, citing the fruit-fly simulation needing a huge data center.",
+     "ts": "45:35",
+     "quote": "adaptable architectures like FPGAs",
+     "numbers_said": [
+      "next 15 years"
+     ]
+    }
+   ],
+   "research_questions": [
+    "What is the status of Taalas (hardwired-model chips): funding, product (e.g., HC1), measured tokens/s and power for Llama-class models, and tape-out on which TSMC node?",
+    "What exactly is OpenAI's custom silicon (the transcript says 'Palapino/Jalapeno'): official name, partner (Broadcom?), launch date, and the published 120 vs 700 tokens/s or 7x claim, including the model and baseline GPU used?",
+    "What are independent numbers for Cerebras (WSE-3 or newer) tokens/s, cost per token, and energy per token vs NVIDIA Blackwell/Rubin and Groq? Any IPO or deal updates as of Oct 2026?",
+    "What are current DRAM/HBM supply, pricing and stock moves (Micron, SK Hynix, Samsung) tied to the memory wall, and the commonly cited energy ratio of DRAM access vs arithmetic (Horowitz, ISSCC numbers)?",
+    "Which open PDK and shuttle programs (SkyWater, GlobalFoundries, TSMC university shuttles, Tiny Tapeout) are used by startups and what are cost and turnaround? Any credible progress on neuromorphic/optical AI chips in 2026?"
+   ],
+   "terms": [
+    "PDK",
+    "tape-out",
+    "memory wall",
+    "HBM/DRAM",
+    "SRAM wafer-scale",
+    "FPGA",
+    "neuromorphic",
+    "hardwired model"
+   ]
+  },
+  {
+   "id": "T4",
+   "title": "What compute should optimize for: tokens/s, cost, space, agents, token efficiency and benchmarks",
+   "why_it_matters": "Argues the optimization target is task-dependent, not a single metric, and that benchmark and pricing incentives currently reward token-heavy models; it shapes what chips and data centers get built.",
+   "points": [
+    {
+     "point": "Evolution of the target metric: first raw compute, then electricity/cost per token, then tokens per second (credited to Cerebras, heard as 'Rebros') as a premium dimension.",
+     "ts": "17:01",
+     "quote": "electricity consumption slash cost per token is very important"
+    },
+    {
+     "point": "Answer is task dependent, not a single metric. Space data centers are the example: latency is irrelevant, data upload is expensive, and radiation bit-flips and extreme temperature survival (a Venus probe example) become the metrics.",
+     "ts": "18:06",
+     "quote": "is space data centers, where imagine you could",
+     "numbers_said": []
+    },
+    {
+     "point": "Agent workloads push optimization to interconnect and inter-GPU communication, as a single agent cannot run on one GPU; some neoclouds are tuning for it over the next one to two years.",
+     "ts": "19:16",
+     "quote": "impossible to run an agent on one GPU",
+     "numbers_said": [
+      "1,000 agents vs 100 agents",
+      "one, two years"
+     ]
+    },
+    {
+     "point": "Proposed new metric: tokens per difficulty or tokens per task, since reasoning models burn huge traces (e.g., 1,000 tokens to answer 'how are you?') and marketing ignores token count.",
+     "ts": "22:52",
+     "quote": "tokens per difficulty, tokens per task",
+     "numbers_said": [
+      "1,000 tokens"
+     ]
+    },
+    {
+     "point": "Benchmark incentives are broken (investors, data companies selling benchmarks); a proposed fix is hidden test sets (half-open, half-closed as at ARC, heard as 'ArcGIS') and benchmarks co-approved by competing vendors.",
+     "ts": "24:46",
+     "quote": "half of the benchmark is open",
+     "numbers_said": [
+      "half open, half closed"
+     ]
+    },
+    {
+     "point": "Data centers have an incentive to serve more requests efficiently (routing prompts to appropriate models), but lack control over what models and reasoning depth OpenAI-style customers run; enterprises moving to fine-tuned open-source models may force the change within about a year.",
+     "ts": "25:56",
+     "quote": "redirect specific prompts to specific models",
+     "numbers_said": [
+      "maybe next year"
+     ]
+    }
+   ],
+   "research_questions": [
+    "What are current (Oct 2026) tokens-per-second and price-per-token comparisons across Cerebras, Groq, NVIDIA and TPU inference for frontier open models, and what premium do customers pay for fast tokens?",
+    "What is the state of space-based data centers (Starcloud, Google Suncatcher, others, SpaceX/xAI): funding, launches, radiation-hardening results, and credible timelines?",
+    "What token-efficiency metrics or leaderboards exist (e.g., ARC Prize cost-per-task, Artificial Analysis, reasoning-effort normalized benchmarks) and how are labs reporting tokens used per task?",
+    "How does ARC-AGI-2/3 split public vs private sets, and what evidence exists of benchmark contamination or gaming in 2026?",
+    "Which neoclouds (CoreWeave, Nebius, Lambda, Crusoe, etc.) market agent-optimized interconnect/networking, and what is the demand for multi-GPU agent infrastructure (NVLink domains, scale-up fabrics)?"
+   ],
+   "terms": [
+    "tokens per second",
+    "cost per token",
+    "tokens per task",
+    "interconnect",
+    "bit flips / radiation hardening",
+    "ARC benchmark",
+    "neocloud"
+   ]
+  },
+  {
+   "id": "T5",
+   "title": "Data center economics and structure: incentives, cycles, edge and training/inference split",
+   "why_it_matters": "Covers who captures value in the AI build-out, whether overbuild is likely, and how data centers and chips will specialize, which is the investor-relevant layer of the panel.",
+   "points": [
+    {
+     "point": "Hyperscalers are described as moving data centers off their balance sheets (selling to investors/leasing), and historical value capture is said to have accrued to the hyperscalers while logic and memory were commodities; five years out today's capability may commoditize.",
+     "ts": "32:49",
+     "quote": "The people who extracted value were the data set, the hyperscale",
+     "numbers_said": [
+      "five years"
+     ]
+    },
+    {
+     "point": "Memory and logic are cyclical: expect an overbuild-and-correction cycle, possibly larger this time, as capacity is expanded on anticipated demand that may not materialize.",
+     "ts": "33:37",
+     "quote": "that cycle will be 4 to 6 years",
+     "numbers_said": [
+      "4 to 6 years",
+      "last 30 years"
+     ]
+    },
+    {
+     "point": "Expect more edge and micro data centers near critical sites (hospital example) because of speed-of-light latency, but they must remain economically sensible given manufacturing constraints.",
+     "ts": "36:13",
+     "quote": "we'll have more edge data centers",
+     "numbers_said": []
+    },
+    {
+     "point": "Specialization is starting: Google announced two different TPUs, one for training and one for inference; more splits (e.g., prefill vs decode) likely, but manufacturing scale limits fine-grained splits in the next five years.",
+     "ts": "37:46",
+     "quote": "they announced two different TPUs",
+     "numbers_said": [
+      "next five years"
+     ]
+    },
+    {
+     "point": "Audience founder says Meta is losing about $30 per person per machine on the free plan vs about $200 per person of revenue from its other products, raising the question of an agent-optimized chip; panel says it is too early to know what agentic workflows are and hardware redesign is slow and costly.",
+     "ts": "46:16",
+     "quote": "$30 per person per machine on the free plan",
+     "numbers_said": [
+      "$30 per person",
+      "$200 per person"
+     ]
+    },
+    {
+     "point": "Audience question on chip design for decentralized agent networks (Project NANDA at MIT); answer: the more you know about the workload the more you can optimize, and co-design could be per-model racks, but too expensive/slow to arrive soon.",
+     "ts": "41:00",
+     "quote": "Project Nanda at MIT",
+     "numbers_said": []
+    }
+   ],
+   "research_questions": [
+    "What are the 2026 TPU generations announced by Google, and is there an official training-vs-inference split (e.g., Ironwood for inference)? Which other vendors (NVIDIA Rubin CPX for prefill, AWS Trainium/Inferentia) have split chips?",
+    "What are current hyperscaler capex totals and guidance for 2026 to 2027 (Amazon, Microsoft, Alphabet, Meta, Oracle), and evidence of off-balance-sheet data center financing (leases, SPVs, e.g., Meta-Blue Owl Hyperion)?",
+    "What do historical memory-industry cycle data (DRAM supercycles, typical 4 to 6 year length) imply for the current HBM/DRAM boom, and are analysts calling an overbuild in 2026 to 2027?",
+    "What are the trends in edge/micro data centers for latency-sensitive AI (hospital, telecom, robotics), and market-size estimates?",
+    "What is Project NANDA (MIT Media Lab, decentralized agent network) and what compute/hardware architecture does it propose? Is there any support for the claim that Meta loses about $30 per user on a free AI plan versus about $200 ARPU?"
+   ],
+   "terms": [
+    "hyperscaler",
+    "neocloud",
+    "edge data center",
+    "TPU",
+    "prefill vs decode",
+    "commodity cycle",
+    "Project NANDA"
+   ]
+  }
+ ],
+ "whisper_doubts": [
+  {
+   "heard": "Belgium Lab",
+   "likely": "imec (Belgian nanoelectronics R&D center) or a lab/company name; could also be the guest's own lab. Unverified.",
+   "ts": "00:37"
+  },
+  {
+   "heard": "Andrew",
+   "likely": "Panelist's name; also lecture.md heard 'Andre' (?) for the second speaker; unverified.",
+   "ts": "00:00"
+  },
+  {
+   "heard": "Entropic",
+   "likely": "Anthropic",
+   "ts": "05:13"
+  },
+  {
+   "heard": "Opus 11.5",
+   "likely": "a future Claude Opus version number said jokingly; unclear",
+   "ts": "05:00"
+  },
+  {
+   "heard": "HCC / founders",
+   "likely": "TSMC / foundries",
+   "ts": "08:32"
+  },
+  {
+   "heard": "Talas, Hedged",
+   "likely": "Taalas (hardwired-model chip startup)",
+   "ts": "09:13"
+  },
+  {
+   "heard": "Palapino / Jalapeno chip",
+   "likely": "OpenAI custom chip, name uncertain (possibly 'Jalapeno'); verify",
+   "ts": "12:54"
+  },
+  {
+   "heard": "GPT-Astra 7.2",
+   "likely": "a GPT model version (unclear)",
+   "ts": "13:40"
+  },
+  {
+   "heard": "Micron stock, SAP Phoenix",
+   "likely": "Micron, SK Hynix",
+   "ts": "14:18"
+  },
+  {
+   "heard": "IPv6 memory chips",
+   "likely": "HBM memory chips",
+   "ts": "14:25"
+  },
+  {
+   "heard": "CiriRest / Seabless / Rebros / Cerebros",
+   "likely": "Cerebras",
+   "ts": "14:38"
+  },
+  {
+   "heard": "3-bit adder takes like picojoules",
+   "likely": "probably a small (e.g., 8/32-bit) adder; unclear",
+   "ts": "16:10"
+  },
+  {
+   "heard": "ArcGIS",
+   "likely": "ARC (ARC Prize / ARC-AGI benchmark)",
+   "ts": "24:41"
+  },
+  {
+   "heard": "Trump announced that they solve these tasks",
+   "likely": "'Anthropic/labs announced' or similar; unclear",
+   "ts": "23:00"
+  },
+  {
+   "heard": "table 5.1 / 5.5",
+   "likely": "model versions such as GPT-5.1/5.5; unclear",
+   "ts": "27:16"
+  },
+  {
+   "heard": "thinking machines, right, the tinker",
+   "likely": "Thinking Machines Lab's Tinker fine-tuning API",
+   "ts": "28:18"
+  },
+  {
+   "heard": "17-year supply chain",
+   "likely": "AI supply chain; unclear",
+   "ts": "28:40"
+  },
+  {
+   "heard": "cybersecurity is like, no",
+   "likely": "possibly 'model developers'; garbled",
+   "ts": "29:25"
+  },
+  {
+   "heard": "2003 was already; data set, the hyperscale",
+   "likely": "possibly 'dot-com/2023' era and 'data centers/hyperscalers'; garbled",
+   "ts": "32:30"
+  },
+  {
+   "heard": "I think the protocols are all monopolies",
+   "likely": "foundries/fabs are all monopolies",
+   "ts": "38:56"
+  },
+  {
+   "heard": "CPU and one LPU",
+   "likely": "one TPU/GPU and one LPU (or training and inference chips)",
+   "ts": "37:53"
+  },
+  {
+   "heard": "Semicon this weekend",
+   "likely": "SEMICON (industry trade show)",
+   "ts": "38:42"
+  },
+  {
+   "heard": "Andre had an interesting experience",
+   "likely": "a third person (possibly 'Andrei'); not the panelist",
+   "ts": "38:36"
+  },
+  {
+   "heard": "Meta's news architecture",
+   "likely": "unclear",
+   "ts": "41:25"
+  },
+  {
+   "heard": "SUPA",
+   "likely": "Project NANDA-affiliated group; uncertain",
+   "ts": "41:10"
+  },
+  {
+   "heard": "blue-beakers open",
+   "likely": "unclear",
+   "ts": "44:07"
+  },
+  {
+   "heard": "MedX",
+   "likely": "possibly 'EDA' or 'chip design' startups; garbled",
+   "ts": "48:58"
+  },
+  {
+   "heard": "broadband",
+   "likely": "Broadcom",
+   "ts": "49:29"
+  },
+  {
+   "heard": "Every percent of yields is a billion, billion, billion",
+   "likely": "garbled yield-revenue claim; do not rely on",
+   "ts": "51:22"
+  },
+  {
+   "heard": "a 390, 390 node from TSMC",
+   "likely": "a 3nm/2nm node (N3/N2)",
+   "ts": "51:53"
+  },
+  {
+   "heard": "giblets",
+   "likely": "chiplets",
+   "ts": "53:03"
+  },
+  {
+   "heard": "x1, 3, memory",
+   "likely": "HBM3 memory (or similar)",
+   "ts": "53:22"
+  },
+  {
+   "heard": "Eris Town",
+   "likely": "unclear",
+   "ts": "56:18"
+  },
+  {
+   "heard": "Smash Boy",
+   "likely": "unclear",
+   "ts": "54:44"
+  }
+ ]
+}
