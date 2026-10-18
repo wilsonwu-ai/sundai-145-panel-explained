@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Who builds the brains? The Sundai Hack 145 chip panel, explained like you're 5</title>
-<meta name="description" content="An ELI5 explainer of the Sundai Hack 145 panel on AI, chip design, manufacturing and data centers.">
+<title>Who builds the brains? The Sundai Hack 145 chip panel, explained simply</title>
+<meta name="description" content="A plain-language explainer of the Sundai Hack 145 panel on AI, chip design, manufacturing and data centers.">
 <style>
 :root{--bg:#fbfaf7;--ink:#1f2330;--muted:#5b6070;--rule:#e4e1d8;--accent:#eb6c36;--card:#ffffff;--quote:#f3efe6}
 @media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#14161c;--ink:#eceae4;--muted:#a3a6b0;--rule:#2b2f3a;--accent:#f08a5d;--card:#1c1f27;--quote:#20242e}}
@@ -25,11 +25,11 @@ code{font-size:.9em}
 hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 </style></head>
 <body><main>
-<h1>Who builds the brains? The Sundai Hack 145 chip panel, explained like you're 5</h1>
+<h1>Who builds the brains? The Sundai Hack 145 chip panel, explained simply</h1>
 <p><em>AI can already help design chips. The harder questions are who can build them, how fast, and what they should be built to do.</em></p>
 <h2>The whole panel in 30 seconds</h2>
 <p>The two hosts of Sundai Hack 145 spent an hour at MIT CSAIL in October 2026 talking about where AI meets chip design, chip factories and data centers. Their main argument: AI is about to make <em>designing</em> chips much faster, but <em>manufacturing</em> them is the slow part, so that is where the real bottleneck sits. Around that core, they argued about memory, energy, what a data center should optimize for, and who ends up making money.</p>
-<p>I was in the room. Below, each idea gets a plain-English version first, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.</p>
+<p>I was in the room. Below, each idea starts with a simple picture, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.</p>
 <h2>5 big ideas</h2>
 <p>There are 5 topics. Topic 1 has 5 points, topic 2 has 4, topic 3 has 4, topic 4 has 5, and topic 5 has 4.</p>
 <ol>
@@ -41,7 +41,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 </ol>
 <h2>1. AI is learning to design chips</h2>
 <blockquote>
-<p><strong>Like you're 5:</strong> Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.</p>
+<p>Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.</p>
 </blockquote>
 <figure data-visual="pipeline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-labelledby="pipeline-title pipeline-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="pipeline-title">From idea to chip: where verification takes the time</title>
@@ -141,7 +141,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 <p>If AI makes design fast, the next question is whether anyone can manufacture all those new designs, which is topic 2.</p>
 <h2>2. The factory, not the design, is the wall</h2>
 <blockquote>
-<p><strong>Like you're 5:</strong> A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.</p>
+<p>A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.</p>
 </blockquote>
 <figure data-visual="wall"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500" role="img" aria-labelledby="wall-title wall-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="wall-title">The wall between chip designers and the fab</title>
@@ -247,7 +247,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 <p>If the factory is the slow step, every chip that does get made needs to count, which is why topic 3 is about squeezing more out of each one.</p>
 <h2>3. Custom chips win because moving data is expensive</h2>
 <blockquote>
-<p><strong>Like you're 5:</strong> A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.</p>
+<p>A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.</p>
 </blockquote>
 <figure data-visual="memory-wall"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520" role="img" aria-labelledby="memory-wall-title memory-wall-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="memory-wall-title">The memory wall: adding is cheap, fetching is not</title>
@@ -339,7 +339,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 <p>Once you can make a chip faster or cheaper, you have to decide which of those you actually want, which is topic 4.</p>
 <h2>4. "Fast" depends on the job</h2>
 <blockquote>
-<p><strong>Like you're 5:</strong> Think of a printer. Tokens per second is how fast pages come out, and cost per token is the price of ink. Some people pay extra for express printing; others are happy to wait. And a printer on the Moon mostly just needs to survive.</p>
+<p>Think of a printer. Tokens per second is how fast pages come out, and cost per token is the price of ink. Some people pay extra for express printing; others are happy to wait. And a printer on the Moon mostly just needs to survive.</p>
 </blockquote>
 <h3>What the hosts said</h3>
 <ul>
@@ -364,7 +364,7 @@ hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
 <p>What you optimize for decides what gets built and who pays for it, which brings us to the money in topic 5.</p>
 <h2>5. The money, the cycles, and the split into specialist chips</h2>
 <blockquote>
-<p><strong>Like you're 5:</strong> When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.</p>
+<p>When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.</p>
 </blockquote>
 <figure data-visual="split"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 440" width="800" height="440" role="img" aria-labelledby="split-title split-desc" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="split-title">One chip becomes two, and compute moves out</title>

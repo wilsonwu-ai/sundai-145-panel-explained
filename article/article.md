@@ -1,4 +1,4 @@
-# Who builds the brains? The Sundai Hack 145 chip panel, explained like you're 5
+# Who builds the brains? The Sundai Hack 145 chip panel, explained simply
 
 *AI can already help design chips. The harder questions are who can build them, how fast, and what they should be built to do.*
 
@@ -6,7 +6,7 @@
 
 The two hosts of Sundai Hack 145 spent an hour at MIT CSAIL in October 2026 talking about where AI meets chip design, chip factories and data centers. Their main argument: AI is about to make *designing* chips much faster, but *manufacturing* them is the slow part, so that is where the real bottleneck sits. Around that core, they argued about memory, energy, what a data center should optimize for, and who ends up making money.
 
-I was in the room. Below, each idea gets a plain-English version first, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.
+I was in the room. Below, each idea starts with a simple picture, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.
 
 ## 5 big ideas
 
@@ -20,7 +20,7 @@ There are 5 topics. Topic 1 has 5 points, topic 2 has 4, topic 3 has 4, topic 4 
 
 ## 1. AI is learning to design chips
 
-> **Like you're 5:** Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.
+> Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.
 
 <!-- visual:pipeline -->
 
@@ -47,7 +47,7 @@ If AI makes design fast, the next question is whether anyone can manufacture all
 
 ## 2. The factory, not the design, is the wall
 
-> **Like you're 5:** A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.
+> A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.
 
 <!-- visual:wall -->
 
@@ -77,7 +77,7 @@ If the factory is the slow step, every chip that does get made needs to count, w
 
 ## 3. Custom chips win because moving data is expensive
 
-> **Like you're 5:** A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.
+> A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.
 
 <!-- visual:memory-wall -->
 
@@ -105,7 +105,7 @@ Once you can make a chip faster or cheaper, you have to decide which of those yo
 
 ## 4. "Fast" depends on the job
 
-> **Like you're 5:** Think of a printer. Tokens per second is how fast pages come out, and cost per token is the price of ink. Some people pay extra for express printing; others are happy to wait. And a printer on the Moon mostly just needs to survive.
+> Think of a printer. Tokens per second is how fast pages come out, and cost per token is the price of ink. Some people pay extra for express printing; others are happy to wait. And a printer on the Moon mostly just needs to survive.
 
 ### What the hosts said
 
@@ -131,7 +131,7 @@ What you optimize for decides what gets built and who pays for it, which brings 
 
 ## 5. The money, the cycles, and the split into specialist chips
 
-> **Like you're 5:** When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.
+> When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.
 
 <!-- visual:split -->
 
