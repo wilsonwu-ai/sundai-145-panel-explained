@@ -25,7 +25,7 @@ There are 5 topics. Topic 1 has 5 points, topic 2 has 4, topic 3 has 4, topic 4 
 
 > **Like you're 5:** Imagine a spelling test that comes with an answer key. A computer can grade its own answers, so it can practice a million times without a teacher. Chip design has an answer key too: a simulator tells you whether the circuit works. That makes it a great thing for AI to practice on.
 
-<p align="center"><img src="site/visuals/pipeline.svg" alt="pipeline diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/pipeline.svg" alt="pipeline diagram" width="760"></p>
 ### What the hosts said
 
 - **People stay in the loop for a while.** One host thought humans will still be needed for years, even as automation creeps up the whole stack, from spec (the written description of what the chip should do) to finished design: "So I think maybe 2030 will be still necessary, or maybe a bit longer." [03:52]
@@ -51,7 +51,7 @@ If AI makes design fast, the next question is whether anyone can manufacture all
 
 > **Like you're 5:** A chip design is a recipe, and a chip factory is a giant kitchen with one very expensive oven. AI can write a thousand recipes overnight. But the oven takes ages to learn, and the kitchen can only cook so much. More recipes do not help if the oven is the slow part.
 
-<p align="center"><img src="site/visuals/wall.svg" alt="wall diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/wall.svg" alt="wall diagram" width="760"></p>
 ### What the hosts said
 
 - **There is a wall between designers and makers.** Most chip companies design, and a separate company builds: "NVIDIA doesn't produce their own chips." [01:07] The building side runs on machines that are slow to tune.
@@ -59,7 +59,7 @@ If AI makes design fast, the next question is whether anyone can manufacture all
 - **The biggest factory cannot afford to experiment.** One host argued TSMC runs fixed recipes at full demand, and pausing to try new ideas would cost "hundreds of millions of dollars for them just to try it out." [12:20] So new ideas get tested in smaller factories. Elsewhere they called the industry slow to turn: "processing industry is an oil tanker." [38:32]
 - **Fix the slowest step first.** This is Amdahl's law (speeding up one part of a job only helps as much as that part's share of the total): "you should always focus on the thing which takes the longest time to optimize." [40:00] They named a second bottleneck too: "there is a huge lack of talent." [48:39]
 
-<p align="center"><img src="site/visuals/amdahl.svg" alt="amdahl diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/amdahl.svg" alt="amdahl diagram" width="760"></p>
 ### What the research says
 
 - The 400 million price matches High-NA EUV, the newest version. One trade report put High-NA at about $380 million, more than twice the roughly $180 million of the previous generation ([eeNews Europe, Mar 2024](https://cdn.eenewseurope.com/en/intel-video-shows-high-na-euv-lithography-machine-installation/)). A market piece puts High-NA at about $400M and says TSMC does not need High-NA for its next several processes ([iTiger, Jul 2026](https://www.itiger.com/news/1163873712)). ASML does not publish prices, so these are press figures.
@@ -79,7 +79,7 @@ If the factory is the slow step, every chip that does get made needs to count, w
 
 > **Like you're 5:** A chef can chop vegetables in a blink, but the fridge is down the street. Most of the time and energy goes into walking to the fridge, not cooking. Custom chips put the groceries on the counter, or build the recipe into the kitchen itself, so you stop walking.
 
-<p align="center"><img src="site/visuals/memory-wall.svg" alt="memory-wall diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/memory-wall.svg" alt="memory-wall diagram" width="760"></p>
 ### What the hosts said
 
 - **Small open factories may move first.** One host argued that the first solution for fast custom chips "is going to come from all these open PDKs." [08:26] A PDK (process design kit) is the rulebook for a factory's process. The hosts said open ones avoid the secrecy contracts of the biggest foundries, though shared open runs still have fixed deadlines.
@@ -132,7 +132,7 @@ What you optimize for decides what gets built and who pays for it, which brings 
 
 > **Like you're 5:** When every lemonade stand sees lemons selling out, they all plant lemon trees. Years later the trees ripen at once, there are too many lemons, and prices crash. Chip factories take years to build, so they often get the timing wrong in the same way.
 
-<p align="center"><img src="site/visuals/split.svg" alt="split diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/split.svg" alt="split diagram" width="760"></p>
 ### What the hosts said
 
 - **Who captures the value.** Looking back, one host argued that chips were commodities ("memory was completely commodity") and the hyperscalers (giant cloud companies) took the profit. [32:44] They also said these companies are moving data centers off their own books.
@@ -156,7 +156,7 @@ Money flowing into AI, from data-center spending to startup funding like ChipAge
 
 ## How the 5 ideas fit together
 
-<p align="center"><img src="site/visuals/big-picture.svg" alt="big-picture diagram" width="760"></p>
+<p align="center"><img src="docs/visuals/big-picture.svg" alt="big-picture diagram" width="760"></p>
 Read the five topics as one loop. Money (capex) funds new chips. AI makes designing them faster. The factory wall limits how many get made. Memory and energy limits decide what a good chip looks like. And the choice of what to optimize, tokens per second or cost per task, decides what buyers will pay for, which sends money back to the start.
 
 The hosts' sharpest point is Amdahl's law applied to design versus manufacturing. Faster design is exciting, but the whole process only moves as fast as its slowest link, and today that link is manufacturing.
