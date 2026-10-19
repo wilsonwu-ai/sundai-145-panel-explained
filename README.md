@@ -9,7 +9,7 @@
 
 The two hosts of Sundai Hack 145 spent an hour at MIT CSAIL in October 2026 talking about where AI meets chip design, chip factories and data centers. Their main argument: AI is about to make *designing* chips much faster, but *manufacturing* them is the slow part, so that is where the real bottleneck sits. Around that core, they argued about memory, energy, what a data center should optimize for, and who ends up making money.
 
-I was in the room. Below, each idea starts with a simple picture, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box.
+I was in the room. Below, each idea starts with a simple picture, then what the hosts said, then what the research found. Where the two disagree, there is a "Fact check" box. At the end, a "Follow the money" section adds what The Economist reported about AI funding in the weeks around the panel.
 
 ## 5 big ideas
 
@@ -68,6 +68,8 @@ If AI makes design fast, the next question is whether anyone can manufacture all
 - Masks (the stencils used to print a chip) cost millions. One estimate lists $10M to $20M for a mask set at 3nm to 5nm ([Silicon Analysts, Mar 2026](https://siliconanalysts.com/analysis/fabless-startup-tapeout-cost-guide)).
 - The talent gap is documented. An industry group projects about 67,000 US chip-industry jobs at risk of going unfilled by 2030 ([SIA, Jul 2023](https://www.semiconductors.org/chipping-away-assessing-and-addressing-the-labor-market-gap-facing-the-u-s-semiconductor-industry/)). That covers the whole industry, not chip designers alone.
 - OpenAI's chip program is real. OpenAI designs the chip and Broadcom handles manufacturing, networking and system integration, aiming at 10 GW of accelerators by 2029 ([Maginative, Oct 2025](https://www.maginative.com/article/openai-and-broadcom-to-co-design-custom-ai-chips-deploy-10-gw-by-2029/)).
+- The wall has gotten narrower over time. In the early 2000s about 25 firms could make the most advanced processors; today 4 can, and TSMC makes nearly all of the high-end ones. More than 20 firms made advanced memory in 1990; now 3 do. TSMC is expected to spend about $62bn on new capacity in 2026, more than 1.5x 2025, and building a fab in America takes about twice as long as in Asia ([The Economist, Oct 15 2026](https://www.economist.com/business/2026/10/15/is-the-semiconductor-industry-headed-for-an-almighty-crash)).
+- The factory boom shows up in whole economies. TSMC went from 10m standard wafers in 2019 to 15m last year, and its capex from $15bn to $41bn. AI exports have lifted annual GDP growth to about 12% in Taiwan and about 4% in South Korea ([The Economist, Sep 17 2026](https://www.economist.com/finance-and-economics/2026/09/17/the-trickle-down-economics-of-the-ai-boom)).
 
 > **Fact check:** "400 million per machine" is a High-NA price. The previous-generation (lower-NA) machines were about $180 million in the same 2024 report, and a current price for those machines was not confirmed ([eeNews Europe, Mar 2024](https://cdn.eenewseurope.com/en/intel-video-shows-high-na-euv-lithography-machine-installation/)). The research also could not confirm the "year and a half to two years" calibration time or the cost of TSMC pausing to experiment. They may be true inside the industry; they are just not on the public record.
 
@@ -94,6 +96,8 @@ If the factory is the slow step, every chip that does get made needs to count, w
 - OpenAI's chip is called Jalapeño, built with Broadcom, with first deployment targeted for late 2026. At its debut OpenAI gave no tokens-per-second figure and promised a technical report ([DBTA, Jun 2026](https://www.dbta.com/Editorial/News-Flashes/OpenAI-and-Broadcom-Debut-LLM-Optimized-Inference-Chip-175457.aspx)).
 - The memory wall shows up in markets. SK hynix reported Q2 2026 operating profit up about 557% from a year earlier, and conventional DRAM contract prices rose about 93 to 98% quarter on quarter in Q1 2026, per an aggregator not checked against filings ([IntuitionLabs, Sep 2026](https://intuitionlabs.ai/articles/hbm-dram-ai-memory-demand)).
 - Memory on the chip, at a price. An OpenAI coding model runs at over 1,000 tokens per second on Cerebras hardware, which keeps its memory on one giant chip. The hosts noted such approaches are fast but cost more energy per token, and the source gives no GPU comparison ([The Register, Feb 2026](https://www.theregister.com/2026/02/12/openai_model_cerebras/)).
+- Custom chips are winning share. Big cloud companies' own chips cost between a fifth and a third as much as Nvidia's, and Bloomberg Intelligence expects custom chips to be about 50% of the AI-processor market by the end of the decade, up from roughly 40% this year. Spending on inference (using models) has now overtaken spending on training them ([The Economist, Sep 3 2026](https://www.economist.com/interactive/briefing/2026/09/03/nvidia-is-the-central-bank-of-ai)). Another count puts non-Nvidia AI chips at 38% of the market, up from 26% in 2023 ([The Economist, Sep 3 2026](https://www.economist.com/leaders/2026/09/03/nvidia-is-driving-the-ai-boom-good)).
+- Memory prices tell the same story: DRAM costs about 6x what it did in early 2023 ([The Economist, Oct 15 2026](https://www.economist.com/business/2026/10/15/is-the-semiconductor-industry-headed-for-an-almighty-crash)).
 - Open factories are real and cheap, but old. One shared run on a 180nm process sells 1,000 dies for $2,000 to $8,000 ([Crowd Supply, Aug 2026](https://www.crowdsupply.com/wafer-space/gf180mcu-run-3)). That suits learning and small parts, not frontier AI chips.
 
 > **Fact check:** On memory, the host if anything undersold it. For a bare 32-bit add, the 2014 table implies a DRAM access costs roughly 10,000 times more or higher, though "about a thousand" is the right order of magnitude ([Horowitz, Feb 2014](https://www.gwern.net/doc/cs/hardware/2014-horowitz-2.pdf)). On the OpenAI chip, the research could not trace the 120 versus 700 tokens per second (7x) comparison to a published source, and OpenAI gave no speed figure at launch ([DBTA, Jun 2026](https://www.dbta.com/Editorial/News-Flashes/OpenAI-and-Broadcom-Debut-LLM-Optimized-Inference-Chip-175457.aspx)). Treat the 7x as unverified.
@@ -143,7 +147,7 @@ What you optimize for decides what gets built and who pays for it, which brings 
 ### What the research says
 
 - The spending is huge. Meta guided 2026 capex (spending on buildings and equipment) to $130 to 145 billion ([Meta, Jul 2026](https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/)). Amazon raised its 2026 capex to about $220B from $200B, mainly on higher memory costs, and said capacity will still fall short of demand in 2026 and 2027 ([Fortune, Jul 2026](https://fortune.com/2026/07/30/andy-jassy-amazon-capex-demand-aws-pga-tour/)).
-- Off-the-books data centers are real. Meta and Blue Owl formed a roughly $27B joint venture for a Louisiana campus, with Blue Owl owning 80% and Meta leasing the buildings ([Bisnow, Oct 2025](https://www.bisnow.com/news/national/data-center-capital-markets/meta-pushes-its-largest-data-center-project-off-its-books-with-27b-joint-venture-131490)).
+- Off-the-books data centers are real. Meta and Blue Owl formed a roughly $27B joint venture for a Louisiana campus, with Blue Owl owning 80% and Meta leasing the buildings ([Bisnow, Oct 2025](https://www.bisnow.com/news/national/data-center-capital-markets/meta-pushes-its-largest-data-center-project-off-its-books-with-27b-joint-venture-131490)). The pattern has spread. Meta's El Paso campus of ten data centers, about a gigawatt, sits in a holding company that is 20% Meta and 80% BlackRock, which issued $13bn of debt in August; Meta leases it for 20 years ([The Economist, Oct 18 2026](https://www.economist.com/business/2026/10/18/the-ai-industrys-gigantic-debts-are-making-investors-nervous)). Amazon, Google, Meta and Microsoft now carry $2.4trn of off-balance-sheet commitments, more than they have borrowed from bond markets ([The Economist, Oct 14 2026](https://www.economist.com/business/2026/10/14/the-ai-boom-is-threatened-by-an-epidemic-of-unreliable-numbers)).
 - The split is happening. Google's eighth-generation TPUs come as TPU 8t for training (one superpod scales to 9,600 chips) and TPU 8i for inference, with up to 2x performance per watt over the prior generation ([Google, Apr 2026](https://blog.google/innovation-and-ai/infrastructure-and-cloud/google-cloud/eighth-generation-tpu-agentic-era/)). NVIDIA's Rubin CPX is a GPU aimed at very long-context inference, with 128GB of memory, expected at the end of 2026 ([NVIDIA, Sep 2025](https://nvidianews.nvidia.com/news/nvidia-unveils-rubin-cpx-a-new-class-of-gpu-designed-for-massive-context-inference)).
 - Edge estimates vary by definition. One firm projects the edge data center market growing from USD 50.86B in 2025 to USD 109.20B by 2030 ([MarketsandMarkets, Sep 2025](https://www.marketsandmarkets.com/PressReleases/edge-data-center.asp)).
 - Someone in the audience asked about chips for decentralized agent networks, naming MIT's Project NANDA. NANDA is a Media Lab effort with 18 institutions to build a network of AI agents, and its page describes software protocols, not hardware ([MIT Media Lab, page undated](https://www.media.mit.edu/projects/mit-nanda/overview/)).
@@ -152,7 +156,42 @@ What you optimize for decides what gets built and who pays for it, which brings 
 
 ### Why it connects
 
-Money flowing into AI, from data-center spending to startup funding like ChipAgents, is part of what drives topic 1's AI design tools, which closes the loop.
+Money flowing into AI, from data-center spending to startup funding like ChipAgents, is part of what drives topic 1's AI design tools, which closes the loop. And in the weeks after the panel, the money itself became the story.
+
+## Follow the money: what happened after the panel
+
+> Picture a toy shop that sells so many toys it starts lending kids the money to buy them. Business looks amazing, as long as the kids keep wanting toys. If they get bored, the shop is stuck holding the loans. That is roughly where AI money stood in the fall of 2026.
+
+The hosts warned about boom-and-bust cycles. Over September and October 2026, The Economist ran a string of stories showing just how big the bet has become, and where it could crack. Here are the 4 things worth knowing.
+
+### 1. The chipmaker became the bank
+
+- Nvidia is worth about $5.4trn, the world's most valuable company. Over the past three years it has pledged more than $70bn to startups and $300bn in financial support to its own customers, which is why some now call it the "central bank of AI" ([The Economist, Sep 3 2026](https://www.economist.com/interactive/briefing/2026/09/03/nvidia-is-the-central-bank-of-ai)).
+- It guarantees data centers that buy its chips: up to $105bn behind an Ohio site where OpenAI will be the tenant, and a plan with six Wall Street firms to raise more than $500bn of AI-infrastructure investment (same source).
+- Why do it? The four big cloud companies bring in roughly half of Nvidia's revenue, and they are designing their own chips, the custom-chip trend from topic 3 (same source).
+- The upside case: Nvidia has $99bn of cash and will make about $200bn this year, so if the bets fail, mostly its shareholders pay ([The Economist, Sep 3 2026](https://www.economist.com/leaders/2026/09/03/nvidia-is-driving-the-ai-boom-good)).
+
+### 2. The build-out now runs on debt
+
+- AI-related borrowing so far in 2026 is nearly $850bn, roughly four times 2023, and the companies involved carry over $3trn of debt. The four biggest cloud companies borrowed $214bn this year, up from $83bn in all of last year ([The Economist, Oct 18 2026](https://www.economist.com/business/2026/10/18/the-ai-industrys-gigantic-debts-are-making-investors-nervous)).
+- JPMorgan expects about $5.5trn of AI capital spending between now and 2030, with three-quarters of it paid for with debt (same source).
+- The "neoclouds" that rent out AI chips grew fastest. The five largest listed ones went from $3bn of revenue in 2024 to $18bn over the past 12 months, but none makes an operating profit, and they owe $61bn ([The Economist, Sep 3 2026](https://www.economist.com/business/2026/09/03/neoclouds-like-coreweave-are-getting-much-bigger-and-riskier)).
+- Markets noticed. The yield on CoreWeave's five-year bond rose to 15% from 10% in July, a level linked to companies in distress ([The Economist, Oct 18 2026](https://www.economist.com/business/2026/10/18/the-ai-industrys-gigantic-debts-are-making-investors-nervous)).
+
+### 3. The revenue has not caught up yet
+
+- AI may be earning American tech around $150bn a year, against roughly $2.5trn a year needed by the end of the decade to cover the data-center build-out ([The Economist, Aug 30 2026](https://www.economist.com/business/2026/08/30/will-anybody-use-ai-as-much-as-coders-do)).
+- Coding is the one runaway success. Four-fifths of programmers use an AI coding tool, and coding is over half of Anthropic's and OpenAI's combined recurring revenue. Other jobs lack coding's built-in answer key, the same "verifiable rewards" idea from topic 1 (same source).
+- The labs themselves are growing fast. Anthropic's sales went from $5bn in the first quarter to $11.5bn in the second ([The Economist, Sep 3 2026](https://www.economist.com/leaders/2026/09/03/nvidia-is-driving-the-ai-boom-good)), and it was reportedly preparing a stock-market listing at about $2trn ([The Economist, Sep 14 2026](https://www.economist.com/business/2026/09/14/should-anthropic-press-pause-on-a-potential-2trn-ipo)).
+- Newer labs are a harder sell. 29 "neolabs" founded by star researchers raised a combined $23bn, but under 35% have released anything you can buy ([The Economist, Oct 15 2026](https://www.economist.com/business/2026/10/15/ai-neolabs-are-raising-huge-sums-most-have-little-to-show-for-it)).
+- The numbers themselves are fuzzy. Labs quote "annual recurring revenue," which is often one month of sales times 12, and they count it differently from each other ([The Economist, Oct 14 2026](https://www.economist.com/business/2026/10/14/the-ai-boom-is-threatened-by-an-epidemic-of-unreliable-numbers)).
+
+### 4. Data centers are physical, and that brings physical risk
+
+- Insurance premiums tied to data centers are set to rise from $11bn today to $24bn by 2030, per Swiss Re. About 40% of America's data-center capacity sits in zones often hit by tornadoes, and the biggest projects may be insured for less than half their value ([The Economist, Sep 22 2026](https://www.economist.com/finance-and-economics/2026/09/22/data-centres-are-straining-the-insurance-market)).
+- Politics is a risk too. The Economist noted that if AI safety fears add to worries about jobs and electricity prices, pressure could build to pause data-center construction ([The Economist, Sep 14 2026](https://www.economist.com/business/2026/09/14/should-anthropic-press-pause-on-a-potential-2trn-ipo)).
+
+> **How this ties back to the panel:** The hosts predicted a cycle, said the cloud giants are moving data centers off their books, and argued the factory is the slow step. All three show up in the money. The cycle risk is now priced into bonds, the off-book structures have grown to trillions, and every dollar of new demand still has to squeeze through a handful of factories.
 
 ## How the 5 ideas fit together
 
@@ -178,4 +217,4 @@ The hosts' sharpest point is Amdahl's law applied to design versus manufacturing
 
 ## How this was made
 
-I recorded the panel on my phone and transcribed it locally with Whisper. Five research lanes then checked the hosts' claims against public sources, and two adversarial fact-checkers tried to knock each finding down. Of 40 claims checked, 0 were killed and 24 were corrected, and key numbers were re-checked against the source pages wherever the pages could be fetched. Vendor and aggregator figures are flagged as such. Every fact here comes from the verified fact sheet: [research/facts.md](research/facts.md). The hosts are not named because their names are unconfirmed. If you spot an error, I would like to know.
+I recorded the panel on my phone and transcribed it locally with Whisper. Five research lanes then checked the hosts' claims against public sources, and two adversarial fact-checkers tried to knock each finding down. Of 40 claims checked, 0 were killed and 24 were corrected, and key numbers were re-checked against the source pages wherever the pages could be fetched. Vendor and aggregator figures are flagged as such. Every fact from the panel research comes from the verified fact sheet: [research/facts.md](research/facts.md). The Economist facts were read in full from 11 subscriber articles published between August 30 and October 18, 2026, and each one links to its article. The hosts are not named because their names are unconfirmed. If you spot an error, I would like to know.

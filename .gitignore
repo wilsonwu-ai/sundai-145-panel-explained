@@ -8,3 +8,7 @@ research/verified.json
 research/anchor_curl.json
 BRIEF.md
 .DS_Store
+research/econ_inbox/
+research/econ/
+research/economist_*.md
+research/economist_notes.json
