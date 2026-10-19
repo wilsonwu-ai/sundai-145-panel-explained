@@ -33,3 +33,10 @@ source: https://github.com/charliemags/supah-silicon
 - Track 2 brief: design the coolest chiplet layout (simulated 2.5D GPU/HBM package; hardware and workloads fixed; teams optimize placements and routes).
 - Signed evaluator score 0.95991959 at 64 x 64, GPU 101.40 C, HBM 94.16 C.
 - Profiled a real app (Supah/Muni: public-record ingestion, SQLite queries, inference-context preparation) to propose a CPU/shared-memory edge chip with an optional inference accelerator; power and model execution unmeasured.
+
+## Author's own Track 2 entry (wilsonwu-ai)
+source: https://github.com/wilsonwu-ai/sundai-hack-145
+source: https://wilsonwu-ai.github.io/sundai-hack-145/
+- #1 on the AutoLab beat-the-hotspot leaderboard at 19:33 ET on 18 Oct: score 0.95916572 (seeded baseline 1.0, lower is better); hottest GPU 101.34 C, hottest memory stack 94.71 C. Next: zaiba6 at 0.95979394. charliemags (Supah Silicon) was #4 at 0.95992.
+- The judge rounds every die temperature to 0.01 C; the polish searched below the rounding step with a private HotSpot build printing 6 decimals.
+- The big late step came from an OpenAI Codex agent run in parallel with the same tools, rules and seed layouts: it moved one GPU die up one HotSpot grid row (0.656 mm).
